@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "lcd.h": "c",
+        "main.h": "c",
+        "bsp_systick.h": "c"
+    }
+}

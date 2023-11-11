@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>dds/Debug</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1036</ColumnWidth1><ColumnWidth2>276</ColumnWidth2><ColumnWidth3>69</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>304</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+    </Static>
+    <Windows>
+      
+      
+    <Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-19223-8986</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-29972-8989</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>dds</ExpandedNode><ExpandedNode>dds/MSP430-fw-console.c</ExpandedNode><ExpandedNode>dds/Output</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-hamtables.h</Filename><XPos>0</XPos><YPos>15</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Program Files\IAR Systems\Embedded Workbench Evaluation 4.0\430\inc\in430.h</Filename><XPos>0</XPos><YPos>42</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-interrupts.h</Filename><XPos>0</XPos><YPos>54</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-dds.h</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>3317</SelStart><SelEnd>3317</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-console.h</Filename><XPos>0</XPos><YPos>51</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-main.h</Filename><XPos>0</XPos><YPos>18</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-memory.h</Filename><XPos>0</XPos><YPos>27</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Program Files\IAR Systems\Embedded Workbench Evaluation 4.0\430\inc\msp430x14x.h</Filename><XPos>0</XPos><YPos>153</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Program Files\IAR Systems\Embedded Workbench Evaluation 4.0\430\inc\intrinsics.h</Filename><XPos>0</XPos><YPos>147</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-main.c</Filename><XPos>0</XPos><YPos>35</YPos><SelStart>2258</SelStart><SelEnd>2258</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-dds[1].c</Filename><XPos>0</XPos><YPos>39</YPos><SelStart>1805</SelStart><SelEnd>1805</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-memory.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>526</SelStart><SelEnd>526</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-interrupts.c</Filename><XPos>0</XPos><YPos>333</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-hamtables.c</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-console.c</Filename><XPos>0</XPos><YPos>26</YPos><SelStart>15806</SelStart><SelEnd>15806</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-lcd.c</Filename><XPos>0</XPos><YPos>81</YPos><SelStart>952</SelStart><SelEnd>952</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-lcd.h</Filename><XPos>0</XPos><YPos>36</YPos><SelStart>1049</SelStart><SelEnd>1049</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>C:\Documents and Settings\Administrator\&#x684C;&#x9762;\pdf\uAjoH5mQ\dds-fw\MSP430-fw-stdincludes.h</Filename><XPos>0</XPos><YPos>15</YPos><SelStart>1703</SelStart><SelEnd>1703</SelEnd></Tab><ActiveTab>17</ActiveTab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-003bb290><key>iaridepm1</key></Toolbar-003bb290></Sizes></Row0></Top><Left><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>631</Bottom><Right>378</Right><x>-2</x><y>-2</y><xscreen>0</xscreen><yscreen>0</yscreen><sizeHorzCX>0</sizeHorzCX><sizeHorzCY>0</sizeHorzCY><sizeVertCX>263889</sizeVertCX><sizeVertCY>760817</sizeVertCY></Rect></Wnd3></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>157</Bottom><Right>1442</Right><x>-2</x><y>-2</y><xscreen>1444</xscreen><yscreen>159</yscreen><sizeHorzCX>1002778</sizeHorzCX><sizeHorzCY>191106</sizeHorzCY><sizeVertCX>0</sizeVertCX><sizeVertCY>0</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

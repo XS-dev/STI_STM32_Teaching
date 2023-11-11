@@ -1,0 +1,6 @@
+--cpu Cortex-M3 -g --apcs=interwork 
+-I C:\Users\唐国荣\Desktop\战舰USB模拟串口\USER\RTE
+-I C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
+-I C:\Keil_v5\ARM\CMSIS\Include
+--pd "__UVISION_VERSION SETA 514" --pd "STM32F10X_HD SETA 1"
+--list ..\lis\startup_stm32f10x_hd.lst --xref -o ..\obj\startup_stm32f10x_hd.o --depend ..\obj\startup_stm32f10x_hd.d "..\CMSIS\CM3\STARTUP\startup_stm32f10x_hd.s"

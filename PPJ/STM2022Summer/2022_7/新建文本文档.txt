@@ -1,0 +1,17 @@
+PA0	分频计数入口
+PA2	下变频过完低通要进
+PC0	ADC入口
+
+
+9833
+PE10	SDATA
+PE12	SCLK
+PE14	SYNC
+
+
+
+PB15是RX，连接到显示屏TX
+PB14是TX，连接到显示屏RX
+
+PB12是RX，连接到ESP8266的TX
+PB13是TX，连接到ESP8266的RX

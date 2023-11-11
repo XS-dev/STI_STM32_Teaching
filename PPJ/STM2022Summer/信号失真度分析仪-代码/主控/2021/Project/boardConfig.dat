@@ -1,0 +1,22 @@
+# config version=3.5
+$ sepk
+  pod_drvr=jioxds110.dll
+  pod_port=0
+$ /
+$ product
+  title="Texas Instruments XDS110 USB"
+  alias=TI_XDS110_USB
+  name=XDS110
+$ /
+$ uscif
+  tdoedge=FALL
+$ /
+$ swd
+  mode="swd+swo"
+$ /
+@ cs_dap_0 family=cs_dap irbits=4 drbits=1 subpaths=1 identify=0
+  & subpath_0 type=legacy address=16 default=no custom=no force=yes pseudo=yes
+    @ cortex_m4_0 family=cortex_mxx irbits=0 drbits=0 identify=0x02000000 traceid=0x0
+  & /
+# /
+

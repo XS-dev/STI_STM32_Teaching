@@ -1,0 +1,3368 @@
+<?xml version="1.0" ?>
+<TOOLSET>
+<OPTIONXML version='7' config='target=msp' />
+<TOOL>
+    <TAG>COMPILER</TAG>
+    <TOOLNAME>C/C++ COMPILER</TOOLNAME>
+    <DEFINITIONS>
+        <OPTION tag='ABI'>
+            <TYPE>simple</TYPE>
+            <NAME>--abi</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>The &apos;--abi&apos; option is deprecated.  The only setting is eabi (elf).</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>eabi,coffabi</DESCRIPTION>
+                <ONEOF>eabi</ONEOF>
+                <ONEOF>coffabi</ONEOF>
+                <DEFAULT>eabi</DEFAULT>
+            </ARG>
+            <DEPRECATE_ARGUMENT tag='coffabi'>
+                <SEVERITY>6</SEVERITY>
+                <DIAGNOSTIC>As of version 15.3.0.STS of the MSP430 CGT, COFF ABI support is discontinued. If COFF ABI support is needed for your application, please use MSP430 CGT version 4.4.x.</DIAGNOSTIC>
+            </DEPRECATE_ARGUMENT>
+            <TIP>Application binary interface</TIP>
+            <HELP>Specify the application binary interface.  Default is eabi.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ABS_DIRECTORY'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--abs_directory</NAME>
+            <ALIAS>-fb</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Absolute listing directory (default is .obj dir)</TIP>
+            <HELP>Absolute listing directory (default is .obj dir)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ABSOLUTE_LISTING'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--absolute_listing</NAME>
+            <ALIAS>-aa</ALIAS>
+            <TIP>Generate absolute listing file</TIP>
+            <HELP>Generate absolute listing file</HELP>
+        </OPTION>
+        
+        <OPTION tag='ADVICE__HW_CONFIG'>
+            <TYPE>simple</TYPE>
+            <NAME>--advice:hw_config</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>RULE</DESCRIPTION>
+                <DEFAULT>all</DEFAULT>
+            </ARG>
+            <TIP>Check hardware configuration settings for device.</TIP>
+            <HELP>Check hardware configuration settings for device such as FRAM settings.</HELP>
+            <METADATA type='rulelist'>
+            
+            &lt;body&gt;
+            
+            	&lt;category id=&quot;1&quot; name=&quot;FRAM Configuration Settings&quot;&gt;
+            		&lt;rule id=&quot;1.1&quot; name=&quot;FRAM LockIO: For FRAM devices, at start up, the GPO power-on default high-impedance mode needs to be disabled to activate previously configured port settings. This can be done by clearing the LOCKLPM5 bit in PM5CTL0 register.&quot;/&gt;
+            		&lt;rule id=&quot;1.2&quot; name=&quot;FRAM wait states: For FRAM devices running at higher than 8MHz, FRAM waitstate needs to be configured accordingly.&quot;/&gt;
+            	&lt;/category&gt;
+            
+            &lt;/body&gt;
+            </METADATA>
+        </OPTION>
+        
+        <OPTION tag='ADVICE__HW_CONFIG_SEVERITY'>
+            <TYPE>simple</TYPE>
+            <NAME>--advice:hw_config_severity</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>error,warning,remark,suppress</DESCRIPTION>
+                <ONEOF>error</ONEOF>
+                <ONEOF>warning</ONEOF>
+                <ONEOF>remark</ONEOF>
+                <ONEOF>suppress</ONEOF>
+            </ARG>
+            <TIP>Set error category for hardware configuration checks.</TIP>
+            <HELP>Set error category for hardware configuration checks.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ADVICE__POWER'>
+            <TYPE>simple</TYPE>
+            <NAME>--advice:power</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>RULE</DESCRIPTION>
+                <DEFAULT>all</DEFAULT>
+            </ARG>
+            <TIP>Enable checking of ULP power rules</TIP>
+            <HELP>Enable validation of ULP power rules.</HELP>
+            <METADATA type='rulelist'>
+            
+            &lt;body&gt;
+            
+            	&lt;category id=&quot;1&quot; name=&quot;Low power mode (LPM) usage&quot;&gt;
+            		&lt;rule id=&quot;1.1&quot; name=&quot;Detected no uses of low power mode state changes using LPMx or _bis_SR_register() or __low_power_mode_x() during compilation.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;2&quot; name=&quot;Software (SW) delay&quot;&gt;
+            		&lt;rule id=&quot;2.1&quot; name=&quot;Detected SW delay loop. Recommend using a timer module instead&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;3&quot; name=&quot;Flag polling&quot;&gt;
+            		&lt;rule id=&quot;3.1&quot; name=&quot;Detected flag polling. Recommend using an interrupt combined with enter LPMx and ISR.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;4&quot; name=&quot;Port initialization&quot;&gt;
+            		&lt;rule id=&quot;4.1&quot; name=&quot;Detected uninitialized Ports during compilation. Recommend setting PxDIR and PxOUT, or PxSEL, or PxSEL2&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;5&quot; name=&quot;Processing/Power intensive operations&quot;&gt;
+            		&lt;rule id=&quot;5.1&quot; name=&quot;Detected division or modulus operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive.&quot;/&gt;
+            		&lt;rule id=&quot;5.2&quot; name=&quot;Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive.&quot;/&gt;
+                            &lt;rule id=&quot;5.3&quot; name=&quot;Detected (s)printf() calls. Recommend moving them to RAM during run time or not using as these are processing/power intensive.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;6&quot; name=&quot;Hardware multiplier&quot;&gt;
+            		&lt;rule id=&quot;6.1&quot; name=&quot;Detected use of multiplication on a device that has no hardware multiplier.&quot;/&gt;
+            		&lt;rule id=&quot;6.2&quot; name=&quot;Detected device with 32-bit multiplier.  Recommend using MSPMATHLIB library (libmath.a).&quot;/&gt;
+            		&lt;rule id=&quot;6.3&quot; name=&quot;Detected device with LEA. Recommend offloading compute-intensive kernels to LEA.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;7&quot; name=&quot;Variable scope&quot;&gt;
+            		&lt;rule id=&quot;7.1&quot; name=&quot;Detected use of global variable within one function. Recommend placing variable in the function locally.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;8&quot; name=&quot;Constants&quot;&gt;
+            		&lt;rule id=&quot;8.1&quot; name=&quot;Variable is used as a constant. Recommend declaring variable as either &amp;quot;static const&amp;quot; or &amp;quot;const&amp;quot;&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;9&quot; name=&quot;Function parameter&quot;&gt;
+            		&lt;rule id=&quot;9.1&quot; name=&quot;Function parameter is being passed by value and should be passed by reference using pointer.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;10&quot; name=&quot;ISR&quot;&gt;
+            		&lt;rule id=&quot;10.1&quot; name=&quot;An ISR calls a function. Recommend moving function call away from ISR, or inlining the function, or using pragmas.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;11&quot; name=&quot;Constant generator utilization&quot;&gt;
+            		&lt;rule id=&quot;11.1&quot; name=&quot;Loop program control flow compared against higher bits. Recommend compare against lower 4 bits to allow use of constant generators.&quot;/&gt;
+            		&lt;rule id=&quot;11.2&quot; name=&quot;Assignment of higher bits (constants) within a loop. Recommend using lower 4 bits to allow use of constant generators.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;12&quot; name=&quot;Direct Memory Access (DMA) usage&quot;&gt;
+            		&lt;rule id=&quot;12.1&quot; name=&quot;Detected memcpy() for transfer greater than 100 words.  Recommend using DMA instead.&quot;/&gt;
+            		&lt;rule id=&quot;12.2&quot; name=&quot;Detected for loop with repetitive data transfer. Recommend using DMA.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;13&quot; name=&quot;Loop counter&quot;&gt;
+            		&lt;rule id=&quot;13.1&quot; name=&quot;Detected loop counting up. Recommend loops count down as detecting zeros is easier.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;14&quot; name=&quot;Array index&quot;&gt;
+            		&lt;rule id=&quot;14.1&quot; name=&quot;Array index using signed variable. Recommend using unsigned variable.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            	&lt;category id=&quot;15&quot; name=&quot;Bitfields&quot;&gt;
+            		&lt;rule id=&quot;15.1&quot; name=&quot;Detected consecutive bitfield assigns. Recommend using bit mask instead.&quot;/&gt;
+            	&lt;/category&gt;
+            	
+            &lt;/body&gt;
+            </METADATA>
+        </OPTION>
+        
+        <OPTION tag='ADVICE__POWER_SEVERITY'>
+            <TYPE>simple</TYPE>
+            <NAME>--advice:power_severity</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>error,warning,remark,suppress</DESCRIPTION>
+                <ONEOF>error</ONEOF>
+                <ONEOF>warning</ONEOF>
+                <ONEOF>remark</ONEOF>
+                <ONEOF>suppress</ONEOF>
+            </ARG>
+            <TIP>Set error category for ULP power rules</TIP>
+            <HELP>Set error category for ULP power rules.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ALIASED_VARIABLES'>
+            <TYPE>simple</TYPE>
+            <NAME>--aliased_variables</NAME>
+            <ALIAS>-ma</ALIAS>
+            <TIP>Assume called funcs create hidden aliases (rare)</TIP>
+            <HELP>Assume called funcs create hidden aliases (rare)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ALIGN_FOR_POWER'>
+            <TYPE>simple</TYPE>
+            <NAME>--align_for_power</NAME>
+            <TIP>Align functions and loops for power</TIP>
+            <HELP>Align functions and loops 4-byte boundaries in order to reduce cache misses from flash and FRAM. This is particularly beneficial for small interrupt service routines and loops. The option will increase code size.</HELP>
+            <CHAIN>
+                <TAG>ALIGN_FOR_SPEED</TAG>
+                <TEXT>--align_for_speed=4</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='ANALYZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--analyze</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>codecov</DESCRIPTION>
+                <ONEOF>codecov</ONEOF>
+            </ARG>
+            <TIP>Generate analysis info from profile data</TIP>
+            <HELP>Generate analysis information about code coverage in the form of CSV files.  This information can then be read and interpreted by other tools.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ANALYZE_ONLY'>
+            <TYPE>simple</TYPE>
+            <NAME>--analyze_only</NAME>
+            <TIP>Only generate analysis</TIP>
+            <HELP>Generate analysis only; do not continue compilation. This option is used in combination with the --analyze option to instruct the compiler to halt the compilation after it has completed the generation of analysis information requested in the --analyze option.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_CROSS_REFERENCE_LISTING'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_cross_reference_listing</NAME>
+            <TIP>Generate cross reference assembly listing file</TIP>
+            <HELP>Generate cross reference assembly listing file</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_DEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_define</NAME>
+            <ALIAS>-ad</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>NAME[=value]</DESCRIPTION>
+            </ARG>
+            <TIP>Pre-define assembly symbol NAME</TIP>
+            <HELP>Pre-define the assembly symbol NAME, optionally setting its contents to &apos;value&apos;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_DEPENDENCY'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_dependency</NAME>
+            <ALIAS>-apd</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Generate assembly dependency information</TIP>
+            <HELP>Generate assembly dependency information.  Optionally, name the assembly dependency file.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_DIRECTORY'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_directory</NAME>
+            <ALIAS>-fs</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Assembly file directory (default is .)</TIP>
+            <HELP>Assembly file directory (default is .)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_EXTENSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_extension</NAME>
+            <ALIAS>-ea</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>.ext</DESCRIPTION>
+            </ARG>
+            <TIP>Extension for assembly files (default is .asm)</TIP>
+            <HELP>Extension for assembly files (default is .asm)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_file</NAME>
+            <ALIAS>-fa</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>File is an assembly file (default for .asm)</TIP>
+            <HELP>File is an assembly file (default for .asm)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_INCLUDES'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_includes</NAME>
+            <ALIAS>-api</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <TIP>Generate first-level assembly include file list</TIP>
+            <HELP>Generate first-level assembly include file list</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_LISTING'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_listing</NAME>
+            <ALIAS>-al</ALIAS>
+            <TIP>Generate listing file</TIP>
+            <HELP>Generate listing file</HELP>
+        </OPTION>
+        
+        <OPTION tag='ASM_UNDEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--asm_undefine</NAME>
+            <ALIAS>-au</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>NAME</DESCRIPTION>
+            </ARG>
+            <TIP>Undefine assembly symbol NAME</TIP>
+            <HELP>Undefine assembly symbol NAME</HELP>
+        </OPTION>
+        
+        <OPTION tag='AUTO_INLINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--auto_inline</NAME>
+            <ALIAS>-oi</ALIAS>
+            <ARG>
+                <TYPE>NUMBER</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>size</DESCRIPTION>
+            </ARG>
+            <TIP>Specify threshold for automatic inlining</TIP>
+            <HELP>Specify threshold for automatic inlining</HELP>
+        </OPTION>
+        
+        <OPTION tag='BUFFER_DIAGNOSTICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--buffer_diagnostics</NAME>
+            <ALIAS>-pdb</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--buffer_diagnostics is deprecated and will be removed in a subsequent release. The default behavior is to line buffer diagnostics.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Line buffer diagnostic output</TIP>
+            <HELP>Line buffer diagnostic output to reduce message mixing when compiling in parallel.</HELP>
+        </OPTION>
+        
+        <OPTION tag='CPLUSPLUS03'>
+            <TYPE>simple</TYPE>
+            <NAME>--c++03</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>C++03 is no longer supported</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Compile program in C++03 mode.</TIP>
+            <HELP>Compile program in C++03 mode.</HELP>
+            <RESETS>EMBEDDED_CPP</RESETS>
+            <RESETS>CPLUSPLUS14</RESETS>
+        </OPTION>
+        
+        <OPTION tag='CPLUSPLUS14'>
+            <TYPE>simple</TYPE>
+            <NAME>--c++14</NAME>
+            <TIP>Compile program in C++14 mode.</TIP>
+            <HELP>Compile program in C++14 mode.</HELP>
+            <RESETS>CPLUSPLUS03</RESETS>
+            <RESETS>EMBEDDED_CPP</RESETS>
+        </OPTION>
+        
+        <OPTION tag='C11'>
+            <TYPE>simple</TYPE>
+            <NAME>--c11</NAME>
+            <TIP>Compile program in C11 mode.</TIP>
+            <HELP>Compile program in C11 mode.</HELP>
+            <RESETS>C99</RESETS>
+            <RESETS>C89</RESETS>
+            <RESETS>KR_COMPATIBLE</RESETS>
+        </OPTION>
+        
+        <OPTION tag='C89'>
+            <TYPE>simple</TYPE>
+            <NAME>--c89</NAME>
+            <TIP>Compile program in ANSI C89 mode.</TIP>
+            <HELP>Compile program in ANSI C89 mode.</HELP>
+            <RESETS>C11</RESETS>
+            <RESETS>KR_COMPATIBLE</RESETS>
+            <RESETS>C99</RESETS>
+        </OPTION>
+        
+        <OPTION tag='C99'>
+            <TYPE>simple</TYPE>
+            <NAME>--c99</NAME>
+            <TIP>Compile program in C99 mode.</TIP>
+            <HELP>Compile program in C99 mode.</HELP>
+            <RESETS>C89</RESETS>
+            <RESETS>KR_COMPATIBLE</RESETS>
+            <RESETS>C11</RESETS>
+        </OPTION>
+        
+        <OPTION tag='C_EXTENSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--c_extension</NAME>
+            <ALIAS>-ec</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>.ext</DESCRIPTION>
+            </ARG>
+            <TIP>Extension for C files (default is .c)</TIP>
+            <HELP>Extension for C files (default is .c)</HELP>
+        </OPTION>
+        
+        <OPTION tag='C_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--c_file</NAME>
+            <ALIAS>-fc</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>File is a C file (default for .c/no ext)</TIP>
+            <HELP>File is a C file (default for .c/no ext)</HELP>
+        </OPTION>
+        
+        <OPTION tag='C_SRC_INTERLIST'>
+            <TYPE>simple</TYPE>
+            <NAME>--c_src_interlist</NAME>
+            <ALIAS>-ss</ALIAS>
+            <TIP>Generate C source interlisted assembly file</TIP>
+            <HELP>Generate C source interlisted assembly file</HELP>
+            <OVERRIDES>SRC_INTERLIST</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='CALL_ASSUMPTIONS'>
+            <TYPE>simple</TYPE>
+            <NAME>--call_assumptions</NAME>
+            <ALIAS>-op</ALIAS>
+            <ARG>
+                <TYPE>RANGE</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>0-3</DESCRIPTION>
+                <RANGE low='0' high='3'/>
+            </ARG>
+            <TIP>Specify call assumptions when optimizing</TIP>
+            <HELP>Specify assumptions to make about function calls when optimizing.
+
+Level 0 (-op0) indicates that the module has functions that are called from other modules.
+
+Level 1 (-op1) indicates that the module does not have functions that are called by other modules but has global variables that are modified in other modules.
+
+Level 2 (-op2) indicates that the module does not have functions that are called or globals that are modified by other modules.
+
+Level 3 (-op3) indicates that the module has functions that are called by other modules but does not have globals that are modified by other modules.</HELP>
+        </OPTION>
+        
+        <OPTION tag='CHECK_MISRA'>
+            <TYPE>simple</TYPE>
+            <NAME>--check_misra</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>4</SEVERITY>
+                <DIAGNOSTIC>Misra checking is no longer supported. --check_misra option does not have any effect.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>RULE</DESCRIPTION>
+                <DEFAULT>all</DEFAULT>
+            </ARG>
+            <TIP>--check_misra has been deprecated and has no effect</TIP>
+            <HELP>--check_misra has been deprecated and has no effect</HELP>
+        </OPTION>
+        
+        <OPTION tag='CMD_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--cmd_file</NAME>
+            <ALIAS>-@</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Read options from specified file </TIP>
+            <HELP>Read additional compile options the specified filename.</HELP>
+        </OPTION>
+        
+        <OPTION tag='CODE_MODEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--code_model</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>small,large</DESCRIPTION>
+                <ONEOF>small</ONEOF>
+                <ONEOF>large</ONEOF>
+            </ARG>
+            <TIP>Specify the code memory model.</TIP>
+            <HELP>Specify the code memory model to be used.  Small code model only allows code to be located in the low 64k of memory while large code model allows code to be located anywhere in memory.  Large-code model has a slight performance penalty.  This option only applies to MSP430X devices.</HELP>
+        </OPTION>
+        
+        <OPTION tag='COMMON'>
+            <TYPE>simple</TYPE>
+            <NAME>--common</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+            </ARG>
+            <TIP>Use ELF common symbols</TIP>
+            <HELP>Emit uninitialized variables as common symbols, instead of allocating them to a section. Any variables that have no conflicting requirements, such as data section pragmas, will become common symbols. Unused common blocks may be omitted by the linker to save memory at runtime.</HELP>
+        </OPTION>
+        
+        <OPTION tag='COMPILE_ONLY'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--compile_only</NAME>
+            <ALIAS>-c</ALIAS>
+            <TIP>Disable linking (overrides -z)</TIP>
+            <HELP>Disable linking, overriding -z (if used).</HELP>
+        </OPTION>
+        
+        <OPTION tag='COMPILER_REVISION'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--compiler_revision</NAME>
+            <TIP>Print compiler revision and exit</TIP>
+            <HELP>Print out the compiler release revision and exit.</HELP>
+        </OPTION>
+        
+        <OPTION tag='COPY_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--copy_file</NAME>
+            <ALIAS>-ahc</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--copy_file is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Simulate source &apos;.copy filename&apos;</TIP>
+            <HELP>Simulate source &apos;.copy filename&apos;</HELP>
+        </OPTION>
+        
+        <OPTION tag='CPP_DEFAULT'>
+            <TYPE>simple</TYPE>
+            <NAME>--cpp_default</NAME>
+            <ALIAS>-fg</ALIAS>
+            <TIP>Treat C files as C++ files</TIP>
+            <HELP>Treat C files as C++ files</HELP>
+        </OPTION>
+        
+        <OPTION tag='CPP_EXTENSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--cpp_extension</NAME>
+            <ALIAS>-ep</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>.ext</DESCRIPTION>
+            </ARG>
+            <TIP>Extension for C++ files (default is .cpp)</TIP>
+            <HELP>Extension for C++ files (default is .cpp)</HELP>
+        </OPTION>
+        
+        <OPTION tag='CPP_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--cpp_file</NAME>
+            <ALIAS>-fp</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>File is a C++ file (default for .C .cpp .cc)</TIP>
+            <HELP>File is a C++ file (default for .C .cpp .cc)</HELP>
+        </OPTION>
+        
+        <OPTION tag='CROSS_REFERENCE'>
+            <TYPE>simple</TYPE>
+            <NAME>--cross_reference</NAME>
+            <ALIAS>-ax</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--cross_reference is deprecated and will be removed in a subsequent release. Use --asm_cross_reference_listing instead.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>ASM_CROSS_REFERENCE_LISTING</TAG>
+                    <TEXT>--asm_cross_reference_listing</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Generate cross reference file</TIP>
+            <HELP>Generate cross reference file</HELP>
+        </OPTION>
+        
+        <OPTION tag='DATA_MODEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--data_model</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>small,large,restricted</DESCRIPTION>
+                <ONEOF>small</ONEOF>
+                <ONEOF>large</ONEOF>
+                <ONEOF>restricted</ONEOF>
+            </ARG>
+            <TIP>Specify the data memory model.</TIP>
+            <HELP>Specify the data memory model to be used.  Small data model only allows data to be located in the low 64k of memory.  Large data model allows data to be located anywhere in memory, but there is an associated performance penalty.  The restricted model allows data to be located anywhere in memory, but individual objects cannot be greater than 64k in size.  Restricted data model has less performance overhead than the large data model and is the default.  This option only applies to MSP430X devices.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--define</NAME>
+            <ALIAS>-D</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>NAME[=value]</DESCRIPTION>
+            </ARG>
+            <TIP>Pre-define NAME</TIP>
+            <HELP>Pre-define a symbol with the id &apos;NAME&apos;, optionally setting it&apos;s contents to &apos;value&apos;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_ERROR'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_error</NAME>
+            <ALIAS>-pdse</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as error</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as error</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_REMARK'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_remark</NAME>
+            <ALIAS>-pdsr</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as remark</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as remark</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_SUPPRESS'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_suppress</NAME>
+            <ALIAS>-pds</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Suppress diagnostic &lt;id&gt;</TIP>
+            <HELP>Suppress diagnostic &lt;id&gt;</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_WARNING'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_warning</NAME>
+            <ALIAS>-pdsw</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as warning</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as warning</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_WRAP'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_wrap</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Wrap diagnostic messages</TIP>
+            <HELP>Set diagnostic messages to wrap at 79 columns (on) or not (off).</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISABLE_INLINING'>
+            <TYPE>simple</TYPE>
+            <NAME>--disable_inlining</NAME>
+            <TIP>Disable inlining</TIP>
+            <HELP>Disables both automatic inlining and inlining based on the inline keyword. Functions can still be forced to inline by using the FUNC_ALWAYS_INLINE pragma.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISABLE_INTERRUPTS_AROUND_HW_MPY'>
+            <TYPE>simple</TYPE>
+            <NAME>--disable_interrupts_around_hw_mpy</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Inline hardware multiply version of RTS mpy routine</TIP>
+            <HELP>When inlining hardware multiply routines, (on) disable interrupts around the hardware multiply, or (off) leave interrupts enabled during hw mpy.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISPLAY_ERROR_NUMBER'>
+            <TYPE>simple</TYPE>
+            <NAME>--display_error_number</NAME>
+            <ALIAS>-pden</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <TIP>Emit diagnostic identifier numbers</TIP>
+            <HELP>Emit the diagnostic identifier numbers along with diagnostic messages.  These identifiers can be used with options such as -pds to suppress a specific diagnostic.</HELP>
+        </OPTION>
+        
+        <OPTION tag='EMBEDDED_CPP'>
+            <TYPE>simple</TYPE>
+            <NAME>--embedded_cpp</NAME>
+            <ALIAS>-pe</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>Embedded C++ is no longer supported</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Embedded C++</TIP>
+            <HELP>Enable support for embedded C++</HELP>
+            <RESETS>CPLUSPLUS03</RESETS>
+            <RESETS>CPLUSPLUS14</RESETS>
+        </OPTION>
+        
+        <OPTION tag='EMIT_WARNINGS_AS_ERRORS'>
+            <TYPE>simple</TYPE>
+            <NAME>--emit_warnings_as_errors</NAME>
+            <ALIAS>-pdew</ALIAS>
+            <TIP>Treat warnings as errors</TIP>
+            <HELP>Treat warnings as errors</HELP>
+            <CONFLICT>NO_WARNINGS</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='ENTRY_HOOK'>
+            <TYPE>simple</TYPE>
+            <NAME>--entry_hook</NAME>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>hook_function_name</DESCRIPTION>
+                <DEFAULT>__entry_hook</DEFAULT>
+            </ARG>
+            <TIP>Insert this call at entry to each function</TIP>
+            <HELP>Insert this call at entry to each function</HELP>
+        </OPTION>
+        
+        <OPTION tag='ENTRY_PARM'>
+            <TYPE>simple</TYPE>
+            <NAME>--entry_parm</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>name,address,none</DESCRIPTION>
+                <ONEOF>name</ONEOF>
+                <ONEOF>address</ONEOF>
+                <ONEOF>none</ONEOF>
+            </ARG>
+            <TIP>Pass caller&apos;s name or address to entry hook</TIP>
+            <HELP>Pass caller&apos;s name or address to entry hook</HELP>
+        </OPTION>
+        
+        <OPTION tag='ENUM_TYPE'>
+            <TYPE>simple</TYPE>
+            <NAME>--enum_type</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>unpacked,packed,int</DESCRIPTION>
+                <ONEOF>unpacked</ONEOF>
+                <ONEOF>packed</ONEOF>
+                <ONEOF>int</ONEOF>
+                <DEFAULT>unpacked</DEFAULT>
+            </ARG>
+            <DEPRECATE_ARGUMENT tag='int'>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--enum_type=int is not supported. Using --enum_type=unpacked instead.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>ENUM_TYPE</TAG>
+                    <TEXT>--enum_type=unpacked</TEXT>
+                </MAPSTO>
+            </DEPRECATE_ARGUMENT>
+            <TIP>Designate enum type</TIP>
+            <HELP>Designate the underlying type of an enumeration type
+
+packed   - The integer type underlying an enumerated type is chosen to be the smallest integer type that will accommodate all of the enumeration constants.
+
+unpacked - The underlying type will never be smaller than int.</HELP>
+        </OPTION>
+        
+        <OPTION tag='EXCEPTIONS'>
+            <TYPE>simple</TYPE>
+            <NAME>--exceptions</NAME>
+            <TIP>Enable C++ exception handling</TIP>
+            <HELP>Enable C++ exception handling</HELP>
+            <CHAIN>
+                <TAG>RTTI</TAG>
+                <TEXT>--rtti</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='EXIT_HOOK'>
+            <TYPE>simple</TYPE>
+            <NAME>--exit_hook</NAME>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>hook_function_name</DESCRIPTION>
+                <DEFAULT>__exit_hook</DEFAULT>
+            </ARG>
+            <TIP>Insert this call at exit from each function</TIP>
+            <HELP>Insert this call at exit from each function</HELP>
+        </OPTION>
+        
+        <OPTION tag='EXIT_PARM'>
+            <TYPE>simple</TYPE>
+            <NAME>--exit_parm</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>name,address,none</DESCRIPTION>
+                <ONEOF>name</ONEOF>
+                <ONEOF>address</ONEOF>
+                <ONEOF>none</ONEOF>
+            </ARG>
+            <TIP>Pass caller&apos;s name or address to exit hook</TIP>
+            <HELP>Pass caller&apos;s name or address to exit hook</HELP>
+        </OPTION>
+        
+        <OPTION tag='EXTERN_C_CAN_THROW'>
+            <TYPE>simple</TYPE>
+            <NAME>--extern_c_can_throw</NAME>
+            <TIP>Allow extern C functions to propagate exceptions</TIP>
+            <HELP>This option is only supported under EABI for table-driven exception handling (TDEH). This option is valid only when `--exceptions` is also present. This option allows a function defined in C++ with extern `C` linkage to propagate exceptions.</HELP>
+        </OPTION>
+        
+        <OPTION tag='FLOAT_OPERATIONS_ALLOWED'>
+            <TYPE>simple</TYPE>
+            <NAME>--float_operations_allowed</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>all,32,64,none</DESCRIPTION>
+                <ONEOF>all</ONEOF>
+                <ONEOF>32</ONEOF>
+                <ONEOF>64</ONEOF>
+                <ONEOF>none</ONEOF>
+                <DEFAULT>all</DEFAULT>
+            </ARG>
+            <TIP>Floating point precision accepted by compiler</TIP>
+            <HELP>Control the acceptable precision of floating point operations. The default is all.</HELP>
+        </OPTION>
+        
+        <OPTION tag='FP_REASSOC'>
+            <TYPE>simple</TYPE>
+            <NAME>--fp_reassoc</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>off</DEFAULT>
+            </ARG>
+            <TIP>Allow reassociation of FP arithmetic</TIP>
+            <HELP>Set to on to allow reassociation of floating point arithmetic even in cases where the reassociation will result in a slightly different answer.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GCC'>
+            <TYPE>simple</TYPE>
+            <NAME>--gcc</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--gcc is deprecated and will be removed in a subsequent release. GCC compatibility is implemented through the --relaxed_ansi option and is the default behavior of the compiler.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>RELAXED_ANSI</TAG>
+                    <TEXT>--relaxed_ansi</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Enable support for GCC extensions (DEPRECATED)</TIP>
+            <HELP>This option enables the support for GCC extensions.  This feature is incompatible with strict ANSI mode.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_ACP_RAW'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_acp_raw</NAME>
+            <ALIAS>-pl</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--gen_acp_raw is deprecated and will be removed in a subsequent release. The option has been renamed to --gen_preprocessor_listing.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>GEN_PREPROCESSOR_LISTING</TAG>
+                    <TEXT>--gen_preprocessor_listing</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Output raw listing to .rl file</TIP>
+            <HELP>Output raw listing to .rl file</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_ACP_XREF'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_acp_xref</NAME>
+            <ALIAS>-px</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--gen_acp_xref is deprecated and will be removed in a subsequent release. The option has been renamed to --gen_cross_reference_listing</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>GEN_CROSS_REFERENCE_LISTING</TAG>
+                    <TEXT>--gen_cross_reference_listing</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Output xref listing to .crl file</TIP>
+            <HELP>Output xref listing to .crl file</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_CROSS_REFERENCE_LISTING'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_cross_reference_listing</NAME>
+            <TIP>Output cross reference listing to .crl file</TIP>
+            <HELP>Generates a listing file with information on where symbols are referenced and defined. A .crl file will be created for every source file.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_DATA_SUBSECTIONS'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_data_subsections</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+            </ARG>
+            <TIP>Place structs and arrays in separate subsections</TIP>
+            <HELP>Placing structs and arrays in subsections allows the linker to remove unused data at link time. If the option is not specified, the default behavior is on</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_FUNC_INFO_LISTING'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_func_info_listing</NAME>
+            <TIP>Generate a function information listing file</TIP>
+            <HELP>Generates a file with information on each function. The information includes the stack usage information and a list of called function. A .aux file is created for every source file.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_OPT_INFO'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_opt_info</NAME>
+            <ALIAS>-on</ALIAS>
+            <ARG>
+                <TYPE>RANGE</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>0-2</DESCRIPTION>
+                <RANGE low='0' high='2'/>
+            </ARG>
+            <TIP>Generate optimizer information file at level [0-2]</TIP>
+            <HELP>Set the optimizer information file level, or disable with 0. Level 1 includes basic information.  Level 2 includes detailed information.  The file will be created in the assembly directory if a custom asm directory is specified on the command line otherwise it will be created in the object file directory.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_PREPROCESSOR_LISTING'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_preprocessor_listing</NAME>
+            <TIP>Output preprocessor listing to .rl file</TIP>
+            <HELP>Generates a listing file with information about the preprocessing output. One of the useful features is being able to compare lines before and after preprocessing has occurred. A .rl file will be generated for every source file.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GEN_PROFILE_INFO'>
+            <TYPE>simple</TYPE>
+            <NAME>--gen_profile_info</NAME>
+            <TIP>Generate profile feedback data</TIP>
+            <HELP>Instrument the object code that is generated for a compilation with path profiling information.  The compiler will annotate the code that is generated for an application so that, when executed, the application can generate information about which code paths were executed and how often.  This profile data can then be used by subsequent compiles to analyze code coverage or call graph information to assist with subsequent development.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GLOBAL_REGISTER'>
+            <TYPE>simple</TYPE>
+            <NAME>--global_register</NAME>
+            <ARG>
+                <TYPE>ONEOFLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>r4,r5</DESCRIPTION>
+                <ONEOF>r4</ONEOF>
+                <ONEOF>r5</ONEOF>
+            </ARG>
+            <TIP>Reserve a register for use by the user.</TIP>
+            <HELP>Reserve the specified register for use by the user.  It will not be used by the compiler.  If only reserving one global register it is preferable for performance reasons to reserve r4.</HELP>
+        </OPTION>
+        
+        <OPTION tag='HELP'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--help</NAME>
+            <ALIAS>-h</ALIAS>
+            <TIP>Show help screen</TIP>
+            <HELP>Show usage information.  When followed by another option or a phrase display that option&apos;s detailed information, or search for options related to that phrase.</HELP>
+        </OPTION>
+        
+        <OPTION tag='INCLUDE_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--include_file</NAME>
+            <ALIAS>-ahi</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--include_file is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Simulate source &apos;.include filename&apos;</TIP>
+            <HELP>Simulate source &apos;.include filename&apos;</HELP>
+        </OPTION>
+        
+        <OPTION tag='INCLUDE_PATH'>
+            <TYPE>simple</TYPE>
+            <NAME>--include_path</NAME>
+            <ALIAS>-I</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Add dir to #include search path</TIP>
+            <HELP>Add the specified dir(ectory) to the #include file search path list.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ISSUE_REMARKS'>
+            <TYPE>simple</TYPE>
+            <NAME>--issue_remarks</NAME>
+            <ALIAS>-pdr</ALIAS>
+            <TIP>Issue remarks</TIP>
+            <HELP>Issue remarks, which are normally suppressed.</HELP>
+        </OPTION>
+        
+        <OPTION tag='KEEP_ASM'>
+            <TYPE>simple</TYPE>
+            <NAME>--keep_asm</NAME>
+            <PREFERREDALIAS>-k</PREFERREDALIAS>
+            <TIP>Keep the generated assembly language (.asm) file</TIP>
+            <HELP>Keep the generated assembly language (.asm) file</HELP>
+        </OPTION>
+        
+        <OPTION tag='KEEP_UNNEEDED_STATICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--keep_unneeded_statics</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--keep_unneeded_statics is deprecated and will be removed in a subsequent release. This capability can be achieved by using the RETAIN pragma.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Do not delete unreferenced static variables</TIP>
+            <HELP>The parser, by default, will remark about and then remove any unreferenced static variables.  This option will keep the parser from deleting unreferenced static variables and any static functions that are, in turn referenced by these variables.</HELP>
+        </OPTION>
+        
+        <OPTION tag='KR_COMPATIBLE'>
+            <TYPE>simple</TYPE>
+            <NAME>--kr_compatible</NAME>
+            <ALIAS>-pk</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>K&amp;R compatibility mode is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>K &amp; R compatibility</TIP>
+            <HELP>Enable K &amp; R C compatibility.</HELP>
+            <RESETS>C99</RESETS>
+            <RESETS>C11</RESETS>
+            <RESETS>C89</RESETS>
+        </OPTION>
+        
+        <OPTION tag='LARGE_MEMORY_MODEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--large_memory_model</NAME>
+            <ALIAS>-ml</ALIAS>
+            <TIP>Use large-data memory model</TIP>
+            <HELP>Build using a large-data model.  This allows data to be placed in memory locations above the 64k boundary and individual objects can be larger than 64k in size.  Only valid for MSP430X devices.</HELP>
+            <CHAIN>
+                <TAG>MEM_MODEL__DATA</TAG>
+                <TEXT>--mem_model:data=huge</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='LIST_DIRECTORY'>
+            <TYPE>simple</TYPE>
+            <NAME>--list_directory</NAME>
+            <ALIAS>-ff</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Listing/xref file directory (default is .obj dir)</TIP>
+            <HELP>Listing/xref file directory (default is .obj dir)</HELP>
+            <CHAIN>
+                <TAG>ASM_LISTING</TAG>
+                <TEXT>--asm_listing</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='LISTING_EXTENSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--listing_extension</NAME>
+            <ALIAS>-es</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>.ext</DESCRIPTION>
+            </ARG>
+            <TIP>Extension for listing files (default is .lst)</TIP>
+            <HELP>Extension for listing files (default is .lst)</HELP>
+        </OPTION>
+        
+        <OPTION tag='MISRA_ADVISORY'>
+            <TYPE>simple</TYPE>
+            <NAME>--misra_advisory</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>Misra checking is no longer supported. --misra_advisory option does not have any effect.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>error,warning,remark,suppress</DESCRIPTION>
+                <ONEOF>error</ONEOF>
+                <ONEOF>warning</ONEOF>
+                <ONEOF>remark</ONEOF>
+                <ONEOF>suppress</ONEOF>
+            </ARG>
+            <TIP>--misra_advisory has been deprecated and has no effect</TIP>
+            <HELP>--misra_advisory has been deprecated and has no effect</HELP>
+        </OPTION>
+        
+        <OPTION tag='MISRA_REQUIRED'>
+            <TYPE>simple</TYPE>
+            <NAME>--misra_required</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>Misra checking is no longer supported. --misra_required option does not have any effect.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>error,warning,remark,suppress</DESCRIPTION>
+                <ONEOF>error</ONEOF>
+                <ONEOF>warning</ONEOF>
+                <ONEOF>remark</ONEOF>
+                <ONEOF>suppress</ONEOF>
+            </ARG>
+            <TIP>--misra_required has been deprecated and has no effect</TIP>
+            <HELP>--misra_required has been deprecated and has no effect</HELP>
+        </OPTION>
+        
+        <OPTION tag='MULTIBYTE_CHARS'>
+            <TYPE>simple</TYPE>
+            <NAME>--multibyte_chars</NAME>
+            <ALIAS>-pc</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--multibyte_chars is deprecated and will be removed in a subsequent release. The support for multibyte characters is now enabled by default.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Multibyte character support</TIP>
+            <HELP>Enable parser support for multibyte character sequences in comments, string literals, and character constants.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NEAR_DATA'>
+            <TYPE>simple</TYPE>
+            <NAME>--near_data</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>globals,none</DESCRIPTION>
+                <ONEOF>globals</ONEOF>
+                <ONEOF>none</ONEOF>
+                <DEFAULT>globals</DEFAULT>
+            </ARG>
+            <TIP>Indicates what data must be near</TIP>
+            <HELP>Indicates whether certain types of data are guaranteed to be in the near 64k of memory and allows the compiler to optimize performance based on this information.  Globals indicates that all global and static variables will be located in near memory.  This option only applies to MSP430X devices.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_CONST_CLINK'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_const_clink</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--no_const_clink is deprecated and will be removed in a subsequent release. Use --gen_data_subsections=off.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>GEN_DATA_SUBSECTIONS</TAG>
+                    <TEXT>--gen_data_subsections=off</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Do not generate .clink for .const sections</TIP>
+            <HELP>Do not generate .clink directives for const global arrays.  By default these arrays are placed in a .const subsection and conditionally linked.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_INLINING'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_inlining</NAME>
+            <ALIAS>-pi</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>The --no_inlining option is no longer supported. Please use the --disable_inlining option which disables both automatic inlining and inlining based on the inline keyword.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Ignore inline keyword</TIP>
+            <HELP>Ignore the inline keyword while parsing.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_INTRINSICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_intrinsics</NAME>
+            <ALIAS>-pn</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--no_intrinsics is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Disable intrinsic functions</TIP>
+            <HELP>Disable intrinsic functions in the parser.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_WARNINGS'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_warnings</NAME>
+            <ALIAS>-pdw</ALIAS>
+            <TIP>Suppress warnings</TIP>
+            <HELP>Suppress all parser warnings.</HELP>
+            <CONFLICT>EMIT_WARNINGS_AS_ERRORS</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='OBJ_DIRECTORY'>
+            <TYPE>simple</TYPE>
+            <NAME>--obj_directory</NAME>
+            <ALIAS>-fr</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Object file directory (default is .)</TIP>
+            <HELP>Object file directory (default is .)</HELP>
+        </OPTION>
+        
+        <OPTION tag='OBJ_EXTENSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--obj_extension</NAME>
+            <ALIAS>-eo</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>.ext</DESCRIPTION>
+            </ARG>
+            <TIP>Extension for object files (default is .obj)</TIP>
+            <HELP>Extension for object files (default is .obj)</HELP>
+            <CONFLICT>OUTPUT_FILE</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='OBJ_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--obj_file</NAME>
+            <ALIAS>-fo</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>File is an object file (default for .obj)</TIP>
+            <HELP>File is an object file (default for .obj)</HELP>
+        </OPTION>
+        
+        <OPTION tag='OPT_FOR_SPEED'>
+            <TYPE>simple</TYPE>
+            <NAME>--opt_for_speed</NAME>
+            <ALIAS>-mf</ALIAS>
+            <ARG>
+                <TYPE range_type='slider'>RANGE</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>0-5</DESCRIPTION>
+                <RANGE low='0' low_description='size' high='5' high_description='speed'/>
+                <DEFAULT>4</DEFAULT>
+            </ARG>
+            <TIP>Speed vs. size trade-offs </TIP>
+            <HELP>Control speed vs. size trade-offs in optimization.  A value of 5 indicates fully optimizing for speed with a potentially large code size penalty, while a value of 0 indicates fully optimizing for size. Values between 0 and 5 indicate trade-offs between the two extremes.</HELP>
+        </OPTION>
+        
+        <OPTION tag='OPT_LEVEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--opt_level</NAME>
+            <PREFERREDALIAS>-O</PREFERREDALIAS>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>off,0,1,2,3,4</DESCRIPTION>
+                <ONEOF>off</ONEOF>
+                <ONEOF description='Register Optimizations'>0</ONEOF>
+                <ONEOF description='Local Optimizations'>1</ONEOF>
+                <ONEOF description='Global Optimizations'>2</ONEOF>
+                <ONEOF description='Interprocedure Optimizations'>3</ONEOF>
+                <ONEOF description='Whole Program Optimizations'>4</ONEOF>
+                <DEFAULT>2</DEFAULT>
+            </ARG>
+            <TIP>Optimization level</TIP>
+            <HELP>Set compiler optimization level.
+
+Level 0 includes register optimizations.  Level 1 adds local optimizations. Level 2 further adds global optimizations. Level 3 further adds interprocedure optimizations. Level 4 adds whole program optimizations. Level 4 must be passed to the linker for the optimizations to take affect.</HELP>
+        </OPTION>
+        
+        <OPTION tag='OPTIMIZE_WITH_DEBUG'>
+            <TYPE>simple</TYPE>
+            <NAME>--optimize_with_debug</NAME>
+            <ALIAS>-mn</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--optimize_with_debug is deprecated and will be removed in a subsequent release. The behavior is enabled by default.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Optimize fully in the presence of debug (DEPRECATED)</TIP>
+            <HELP>Optimize fully in the presence of debug (DEPRECATED)</HELP>
+        </OPTION>
+        
+        <OPTION tag='OUTPUT_ALL_SYMS'>
+            <TYPE>simple</TYPE>
+            <NAME>--output_all_syms</NAME>
+            <ALIAS>-as</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--output_all_syms is deprecated and will be removed in a subsequent release. This is now the default behavior of the compiler.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Keep local symbols in output file</TIP>
+            <HELP>Keep local symbols in output file</HELP>
+        </OPTION>
+        
+        <OPTION tag='OUTPUT_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--output_file</NAME>
+            <ALIAS>-fe</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Compilation output file name, can override --obj_directory</TIP>
+            <HELP>Compilation output file name, can override --obj_directory</HELP>
+            <CONFLICT>OBJ_EXTENSION</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='PARALLEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--parallel</NAME>
+            <ARG>
+                <TYPE>NUMBER</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>parallelism</DESCRIPTION>
+                <DEFAULT>0</DEFAULT>
+            </ARG>
+            <TIP>Allow parallel compilation up to this many threads</TIP>
+            <HELP>Allows the compiler to use multiple threads, which can speed up compilation, especially with -o4.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PENDING_INSTANTIATIONS'>
+            <TYPE>simple</TYPE>
+            <NAME>--pending_instantiations</NAME>
+            <ARG>
+                <TYPE>NUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>#</DESCRIPTION>
+            </ARG>
+            <TIP>limit pending template instantiations</TIP>
+            <HELP>The number of template instantiations that may be in progress at any given time. Use 0 to specify an unlimited number.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PLAIN_CHAR'>
+            <TYPE>simple</TYPE>
+            <NAME>--plain_char</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>signed,unsigned</DESCRIPTION>
+                <ONEOF>signed</ONEOF>
+                <ONEOF>unsigned</ONEOF>
+                <DEFAULT>unsigned</DEFAULT>
+            </ARG>
+            <TIP>Specify how to treat plain chars (signed/unsigned)</TIP>
+            <HELP>Specify how to treat plain chars (signed/unsigned)</HELP>
+        </OPTION>
+        
+        <OPTION tag='PP_DIRECTORY'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--pp_directory</NAME>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Preprocessor file directory (default is .)</TIP>
+            <HELP>Place preprocessor output files in specified directory.  The directory must exist prior to compiler invocation.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PREINCLUDE'>
+            <TYPE>simple</TYPE>
+            <NAME>--preinclude</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Specify a preinclude file</TIP>
+            <HELP>Include the source code of the indicated file at the beginning of the compilation. This can be used to establish standard macro definitions, etc. The file name is searched for in the directories on the include search list. The files are processed in the order in which they were specified.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_DEPENDENCY'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_dependency</NAME>
+            <ALIAS>-ppd</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Generate include file dependency information</TIP>
+            <HELP>Generate a dependency list for the source file into the file &lt;filename&gt;.pp and then exit.  Optionally, name the output file.  The output will include all files included in the source file as well as any of the files included.  Also see the -ppa option to continue compilation after generating the dependency list (similar to gcc).</HELP>
+            <CONFLICT>PREPROC_ONLY</CONFLICT>
+            <CONFLICT>PREPROC_WITH_COMMENT</CONFLICT>
+            <CONFLICT>PREPROC_WITH_LINE</CONFLICT>
+            <OVERRIDES>PREPROC_INCLUDES</OVERRIDES>
+            <OVERRIDES>PREPROC_MACROS</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_INCLUDES'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_includes</NAME>
+            <ALIAS>-ppi</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Generate first-level include file list</TIP>
+            <HELP>Generate an include list for the source file into the file &lt;filename&gt;.pp and then exit.  Optionally, name the output file.  The output will include only those files directly included by the source file.   Also see the -ppa option to continue compilation after generating the include list (similar to gcc).</HELP>
+            <CONFLICT>PREPROC_WITH_LINE</CONFLICT>
+            <CONFLICT>PREPROC_WITH_COMMENT</CONFLICT>
+            <CONFLICT>PREPROC_ONLY</CONFLICT>
+            <OVERRIDES>PREPROC_DEPENDENCY</OVERRIDES>
+            <OVERRIDES>PREPROC_MACROS</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_MACROS'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_macros</NAME>
+            <ALIAS>-ppm</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>filename</DESCRIPTION>
+            </ARG>
+            <TIP>Generate list of pre- &amp; user-defined macros</TIP>
+            <HELP>Generate a list of predefined and user defined macros for the source file into the file &lt;filename&gt;.pp and then exit.  Optionally, name the output file. The output will include only those files directly included by the source file.   Also see the -ppa option to continue compilation after generating the macro list (similar to gcc).</HELP>
+            <CONFLICT>PREPROC_WITH_LINE</CONFLICT>
+            <CONFLICT>PREPROC_ONLY</CONFLICT>
+            <CONFLICT>PREPROC_WITH_COMMENT</CONFLICT>
+            <OVERRIDES>PREPROC_INCLUDES</OVERRIDES>
+            <OVERRIDES>PREPROC_DEPENDENCY</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_ONLY'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_only</NAME>
+            <ALIAS>-ppo</ALIAS>
+            <TIP>Preprocess only</TIP>
+            <HELP>Only preprocess the source file(s) and then stop.</HELP>
+            <CONFLICT>PREPROC_DEPENDENCY</CONFLICT>
+            <CONFLICT>PREPROC_MACROS</CONFLICT>
+            <CONFLICT>PREPROC_INCLUDES</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_WITH_COMMENT'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_with_comment</NAME>
+            <ALIAS>-ppc</ALIAS>
+            <TIP>Preprocess only; maintain comments</TIP>
+            <HELP>Only preprocess the source file(s) and then stop; maintain source comments in the output.</HELP>
+            <CONFLICT>PREPROC_DEPENDENCY</CONFLICT>
+            <CONFLICT>PREPROC_MACROS</CONFLICT>
+            <CONFLICT>PREPROC_INCLUDES</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_WITH_COMPILE'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_with_compile</NAME>
+            <ALIAS>-ppa</ALIAS>
+            <TIP>Continue compilation after using -pp&lt;X&gt; options.</TIP>
+            <HELP>This option instructs the compiler to additionally continue compilation of the source file (rather than exiting) after generating a pre-processing .pp output file such as those generated by -ppd (dependencies) -ppi (included files), or -ppm (macros).</HELP>
+        </OPTION>
+        
+        <OPTION tag='PREPROC_WITH_LINE'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--preproc_with_line</NAME>
+            <ALIAS>-ppl</ALIAS>
+            <TIP>Preprocess only; maintain line directives</TIP>
+            <HELP>Only preprocess the source file(s) and then stop; maintain #line directives in the output..</HELP>
+            <CONFLICT>PREPROC_MACROS</CONFLICT>
+            <CONFLICT>PREPROC_INCLUDES</CONFLICT>
+            <CONFLICT>PREPROC_DEPENDENCY</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='PRINTF_SUPPORT'>
+            <TYPE>simple</TYPE>
+            <NAME>--printf_support</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>nofloat,minimal,full</DESCRIPTION>
+                <ONEOF>nofloat</ONEOF>
+                <ONEOF>minimal</ONEOF>
+                <ONEOF>full</ONEOF>
+                <DEFAULT>full</DEFAULT>
+            </ARG>
+            <TIP>Level of printf/scanf support required</TIP>
+            <HELP>The printf and scanf families of functions are large because they provide complex formatting capabilities, which may not be required in typical embedded applications.  Use this option to reduce code size by eliminating features.  This option must be specified at link time.
+
+Use &apos;--printf_support=nofloat&apos; to exclude support for printing and scanning floating values.  All format specifiers except %f, %F, %g, %G, %e, and %E are supported.
+
+Use &apos;--printf_support=minimal&apos; to exclude support for width and precision flags and all format specifiers except %%, %d %o, %c, %s, and %x.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PROFILE__BREAKPT'>
+            <TYPE>simple</TYPE>
+            <NAME>--profile:breakpt</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>The --profile:breakpt option is no longer supported</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Compile for breakpoint-based profiling</TIP>
+            <HELP>Disable optimizations that cannot be handled by a breakpoint-based profiler</HELP>
+        </OPTION>
+        
+        <OPTION tag='PROFILE__POWER'>
+            <TYPE>simple</TYPE>
+            <NAME>--profile:power</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>The --profile:power option is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Compile for power profiling</TIP>
+            <HELP>Enable power profiling support by inserting NOPs into the frame code.  These NOPs can then be instrumented by the power profiling tooling to track power usage of functions.  If the power profiling tool is not used, this option will increase the cycle count of each function because of the NOPs.  This switch also disables optimizations that cannot be handled by the power-profiler.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PROGRAM_LEVEL_COMPILE'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--program_level_compile</NAME>
+            <ALIAS>-pm</ALIAS>
+            <TIP>Program mode compilation</TIP>
+            <HELP>Enable program mode compilation.</HELP>
+        </OPTION>
+        
+        <OPTION tag='QUIET'>
+            <TYPE>simple</TYPE>
+            <NAME>--quiet</NAME>
+            <ALIAS>-q</ALIAS>
+            <TIP>Quiet Mode</TIP>
+            <HELP>Suppress common compiler non-diagnostic output.  Remarks, errors and warnings will still be generated, as well as feature specific status.</HELP>
+            <RESETS>SUPER_QUIET</RESETS>
+            <RESETS>VERBOSE</RESETS>
+        </OPTION>
+        
+        <OPTION tag='RAMFUNC'>
+            <TYPE>simple</TYPE>
+            <NAME>--ramfunc</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Run functions from RAM.</TIP>
+            <HELP>Indicate that each function will be run out of RAM. Functions will be placed in RAM and optimized for RAM execution. Equivalent to specifying __attribute__((ramfunc)) on all functions in the translation units compiled with this option. For additional information, see http://processors.wiki.ti.com/index.php/Ramfunc_Attribute</HELP>
+        </OPTION>
+        
+        <OPTION tag='RELAXED_ANSI'>
+            <TYPE>simple</TYPE>
+            <NAME>--relaxed_ansi</NAME>
+            <ALIAS>-pr</ALIAS>
+            <TIP>Relaxed parsing (non-strict ANSI)</TIP>
+            <HELP>Enable relaxed ANSI source parsing mode.</HELP>
+            <RESETS>STRICT_ANSI</RESETS>
+        </OPTION>
+        
+        <OPTION tag='REMOVE_HOOKS_WHEN_INLINING'>
+            <TYPE>simple</TYPE>
+            <NAME>--remove_hooks_when_inlining</NAME>
+            <TIP>Remove entry/exit hooks from inlined functions</TIP>
+            <HELP>Remove the entry and exit hooks from the bodies of inlined functions.</HELP>
+        </OPTION>
+        
+        <OPTION tag='RTTI'>
+            <TYPE>simple</TYPE>
+            <NAME>--rtti</NAME>
+            <ALIAS>-rtti</ALIAS>
+            <TIP>Support C++ run-time type information</TIP>
+            <HELP>Support C++ run-time type information</HELP>
+        </OPTION>
+        
+        <OPTION tag='RUN_LINKER'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--run_linker</NAME>
+            <ALIAS>-z</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>arguments</DESCRIPTION>
+            </ARG>
+            <TIP>Perform link using options following</TIP>
+            <HELP>After compiling all the source files, perform a link and pass all the options following this option to the linker.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SAT_REASSOC'>
+            <TYPE>simple</TYPE>
+            <NAME>--sat_reassoc</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>off</DEFAULT>
+            </ARG>
+            <TIP>Allow reassociation of sat arithmetic</TIP>
+            <HELP>Set to on to allow reassociation of saturating arithmetic even in cases where the reassociation will cause saturation to occur differently.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SECTION_SIZES'>
+            <TYPE>simple</TYPE>
+            <NAME>--section_sizes</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Output section size summary information.</TIP>
+            <HELP>Output section size summary information for code, const, and data.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SET_ERROR_LIMIT'>
+            <TYPE>simple</TYPE>
+            <NAME>--set_error_limit</NAME>
+            <ALIAS>-pdel</ALIAS>
+            <ARG>
+                <TYPE>NUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>count</DESCRIPTION>
+            </ARG>
+            <TIP>Set error limit to &lt;count&gt;</TIP>
+            <HELP>Set error limit to &lt;count&gt;</HELP>
+        </OPTION>
+        
+        <OPTION tag='SILICON_ERRATA'>
+            <TYPE>simple</TYPE>
+            <NAME>--silicon_errata</NAME>
+            <ARG>
+                <TYPE>ONEOFLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>CPU12,CPU13,CPU15,CPU18,CPU19,CPU21,CPU22,CPU23,CPU40</DESCRIPTION>
+                <ONEOF>CPU12</ONEOF>
+                <ONEOF>CPU13</ONEOF>
+                <ONEOF>CPU15</ONEOF>
+                <ONEOF>CPU18</ONEOF>
+                <ONEOF>CPU19</ONEOF>
+                <ONEOF>CPU21</ONEOF>
+                <ONEOF>CPU22</ONEOF>
+                <ONEOF>CPU23</ONEOF>
+                <ONEOF>CPU40</ONEOF>
+            </ARG>
+            <TIP>Workaround specified silicon errata</TIP>
+            <HELP>The compiler will use workarounds and emit warnings as necessary to properly handle the specified silicon errata.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SILICON_VERSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--silicon_version</NAME>
+            <PREFERREDALIAS>-v</PREFERREDALIAS>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>msp,mspx</DESCRIPTION>
+                <ONEOF>msp</ONEOF>
+                <ONEOF>mspx</ONEOF>
+                <DEFAULT>msp</DEFAULT>
+            </ARG>
+            <TIP>Silicon version </TIP>
+            <HELP>Specify silicon core version.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SINGLE_INLINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--single_inline</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--single_inline is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Inline functions only called once.</TIP>
+            <HELP>Inline function that are called only once.  Will inline these functions even if auto inlining has been turned off (-oi0)</HELP>
+        </OPTION>
+        
+        <OPTION tag='SKIP_ASSEMBLER'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--skip_assembler</NAME>
+            <ALIAS>-n</ALIAS>
+            <TIP>Compile only; do not assemble</TIP>
+            <HELP>Compile only; do not assemble</HELP>
+            <CHAIN>
+                <TAG>KEEP_ASM</TAG>
+                <TEXT>--keep_asm</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='SMALL_ENUM'>
+            <TYPE>simple</TYPE>
+            <NAME>--small_enum</NAME>
+            <ALIAS>--small-enum</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--small_enum is deprecated and will be removed in a subsequent release. Use --enum_type=packed instead.</DIAGNOSTIC>
+                <MAPSTO>
+                    <TAG>ENUM_TYPE</TAG>
+                    <TEXT>--enum_type=packed</TEXT>
+                </MAPSTO>
+            </DEPRECATE_OPTION>
+            <TIP>Enums may be char/short, instead of int</TIP>
+            <HELP>Enums may be char/short, instead of int</HELP>
+        </OPTION>
+        
+        <OPTION tag='SRC_INTERLIST'>
+            <TYPE>simple</TYPE>
+            <NAME>--src_interlist</NAME>
+            <ALIAS>-s</ALIAS>
+            <TIP>Generate interlisted assembly file</TIP>
+            <HELP>Generate interlisted assembly file</HELP>
+            <OVERRIDES>C_SRC_INTERLIST</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='STATIC_TEMPLATE_INSTANTIATION'>
+            <TYPE>simple</TYPE>
+            <NAME>--static_template_instantiation</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>--static_template_instantiation is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Do static early template instantiation</TIP>
+            <HELP>All template entities are instantiated as needed in the file.  The instantiations are given internal (static) linkage.</HELP>
+        </OPTION>
+        
+        <OPTION tag='STD_LIB_FUNC_DEFINED'>
+            <TYPE>singlefile</TYPE>
+            <NAME>--std_lib_func_defined</NAME>
+            <ALIAS>-ol1</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--std_lib_func_defined is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>File contains an RTS library function.</TIP>
+            <HELP>File contains an RTS library function.</HELP>
+        </OPTION>
+        
+        <OPTION tag='STD_LIB_FUNC_NOT_DEFINED'>
+            <TYPE>singlefile</TYPE>
+            <NAME>--std_lib_func_not_defined</NAME>
+            <ALIAS>-ol2</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--std_lib_func_not_defined is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>File does not define any RTS library func (def.)</TIP>
+            <HELP>File does not define any RTS library func (def.)</HELP>
+        </OPTION>
+        
+        <OPTION tag='STD_LIB_FUNC_REDEFINED'>
+            <TYPE>singlefile</TYPE>
+            <NAME>--std_lib_func_redefined</NAME>
+            <ALIAS>-ol0</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--std_lib_func_redefined is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>File redefines an RTS library function.</TIP>
+            <HELP>File redefines an RTS library function.</HELP>
+        </OPTION>
+        
+        <OPTION tag='STRICT_ANSI'>
+            <TYPE>simple</TYPE>
+            <NAME>--strict_ansi</NAME>
+            <ALIAS>-ps</ALIAS>
+            <TIP>Strict ANSI mode (errors)</TIP>
+            <HELP>Enable strict ANSI source parsing mode.  Any source violating strict ANSI guidelines will generate a parsing error.</HELP>
+            <CONFLICT>GCC</CONFLICT>
+            <RESETS>RELAXED_ANSI</RESETS>
+        </OPTION>
+        
+        <OPTION tag='SUPER_QUIET'>
+            <TYPE>simple</TYPE>
+            <NAME>--super_quiet</NAME>
+            <ALIAS>-qq</ALIAS>
+            <TIP>Super Quiet Mode</TIP>
+            <HELP>Suppress all compiler non-diagnostic output.  Remarks, errors and warnings will still be generated.</HELP>
+            <RESETS>QUIET</RESETS>
+            <RESETS>VERBOSE</RESETS>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__COFF'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:coff</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>--symdebug:coff is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Full symbolic debug (COFF, deprecated)</TIP>
+            <HELP>Enable full symbolic COFF debugging in the generated object or out file (DEPRECATED).</HELP>
+            <OVERRIDES>SYMDEBUG__SKELETAL</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__DWARF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__PROFILE_COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__NONE</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__DWARF'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:dwarf</NAME>
+            <PREFERREDALIAS>-g</PREFERREDALIAS>
+            <TIP>Full symbolic debug</TIP>
+            <HELP>Enable full symbolic DWARF debugging in the generated object or out file.</HELP>
+            <OVERRIDES>SYMDEBUG__PROFILE_COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__SKELETAL</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__NONE</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__DWARF_VERSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:dwarf_version</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>3,4</DESCRIPTION>
+                <ONEOF>2</ONEOF>
+                <ONEOF>3</ONEOF>
+                <ONEOF>4</ONEOF>
+            </ARG>
+            <DEPRECATE_ARGUMENT tag='2'/>
+            <TIP>Specify DWARF version</TIP>
+            <HELP>Specify DWARF version</HELP>
+            <CONFLICT>SYMDEBUG__NONE</CONFLICT>
+            <CONFLICT>SYMDEBUG__COFF</CONFLICT>
+            <CONFLICT>SYMDEBUG__PROFILE_COFF</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__KEEP_ALL_TYPES'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:keep_all_types</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--symdebug:keep_all_types is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Keep unreferenced type info (default for elf w/ debug)</TIP>
+            <HELP>Keep referenced type info (default for elf w/ debug)</HELP>
+            <CHAIN>
+                <TAG>KEEP_UNNEEDED_TYPES</TAG>
+                <TEXT>--keep_unneeded_types=true</TEXT>
+            </CHAIN>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__NONE'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:none</NAME>
+            <TIP>Suppress all symbolic debug generation</TIP>
+            <HELP>Disable debug and suppress all symbolic debug information from being included in the generated object or out file.</HELP>
+            <OVERRIDES>SYMDEBUG__COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__SKELETAL</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__PROFILE_COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__DWARF</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__PROFILE_COFF'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:profile_coff</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>--symdebug:profile_coff is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Function profile debug (COFF, deprecated)</TIP>
+            <HELP>Adds the necessary debug directives to the object file which are needed by the profiler to allow function level profiling with minimal impact on optimization (if optimization is enabled). Using -g may hinder some optimizations to ensure that debugability is maintained, while this option will not hinder optimization.
+
+You will still be able to set breakpoints and profile on function-level boundaries, but you will not be able to single-step through code as with full debug ability.</HELP>
+            <OVERRIDES>SYMDEBUG__SKELETAL</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__DWARF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__NONE</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__COFF</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='SYMDEBUG__SKELETAL'>
+            <TYPE>simple</TYPE>
+            <NAME>--symdebug:skeletal</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--symdebug:skeletal is deprecated and will be removed in a subsequent release. Use --symdebug:dwarf for debug information.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Symbolic debug for program analysis (DEPRECATED)</TIP>
+            <HELP>Enable symbolic debug information for program analysis. (DEPRECATED)</HELP>
+            <OVERRIDES>SYMDEBUG__PROFILE_COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__DWARF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__COFF</OVERRIDES>
+            <OVERRIDES>SYMDEBUG__NONE</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='SYMS_IGNORE_CASE'>
+            <TYPE>simple</TYPE>
+            <NAME>--syms_ignore_case</NAME>
+            <ALIAS>-ac</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>3</SEVERITY>
+                <DIAGNOSTIC>--syms_ignore_case is deprecated and will be removed in a subsequent release.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <TIP>Symbol names are not case-significant</TIP>
+            <HELP>Symbol names are not case-significant</HELP>
+        </OPTION>
+        
+        <OPTION tag='TEMP_DIRECTORY'>
+            <TYPE>simple</TYPE>
+            <NAME>--temp_directory</NAME>
+            <ALIAS>-ft</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Temporary file directory (default is .)</TIP>
+            <HELP>Temporary file directory (default is .)</HELP>
+        </OPTION>
+        
+        <OPTION tag='TOOL_VERSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--tool_version</NAME>
+            <ALIAS>-version</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <TIP>Print version numbers for each tool</TIP>
+            <HELP>Print version numbers for each tool</HELP>
+        </OPTION>
+        
+        <OPTION tag='UNDEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--undefine</NAME>
+            <ALIAS>-U</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>NAME</DESCRIPTION>
+            </ARG>
+            <TIP>Undefine NAME</TIP>
+            <HELP>Undefine the symbol with the id &apos;NAME&apos;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='USE_DEAD_FUNCS_LIST'>
+            <TYPE>simple</TYPE>
+            <NAME>--use_dead_funcs_list</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>The --use_dead_funcs_list option is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>fname</DESCRIPTION>
+            </ARG>
+            <TIP>Use linker-generated file to remove dead functions</TIP>
+            <HELP>The dead functions list contains list of routines that are never referenced. Placing them in a separate section can potentially reduce code size</HELP>
+            <OVERRIDES>GEN_FUNC_SUBSECTIONS</OVERRIDES>
+        </OPTION>
+        
+        <OPTION tag='USE_HW_MPY'>
+            <TYPE>simple</TYPE>
+            <NAME>--use_hw_mpy</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>16,32,F5,none</DESCRIPTION>
+                <ONEOF>16</ONEOF>
+                <ONEOF>32</ONEOF>
+                <ONEOF>F5</ONEOF>
+                <ONEOF>none</ONEOF>
+                <DEFAULT>16</DEFAULT>
+            </ARG>
+            <TIP>Inline hardware multiply version of RTS mpy routine</TIP>
+            <HELP>Replaces all references to the default integer/long multiply routines with the hardware multiplier version of the multiply routine. Additionally inlines hardware multiply calls for --opt_level&gt;=0 and --opt_for_speed&gt;=4.  16 uses the 1xx/2xx/4xx family 16-bit hardware multiplier, 32 uses the 4xx 32-bit hardware multiplier, and F5 uses the 5xx/6xx family 32-bit hardware multiplier.</HELP>
+        </OPTION>
+        
+        <OPTION tag='USE_PROFILE_INFO'>
+            <TYPE>simple</TYPE>
+            <NAME>--use_profile_info</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>filelist</DESCRIPTION>
+            </ARG>
+            <TIP>Use profile feedback file(s)</TIP>
+            <HELP>This option is used in combination with the --analyze option to generate analysis information about code coverage or call graph information in the form of CSV files.  This information can then be read and interpreted by other tools.  For example, the cache layout tool, clt6x, can be used to interpret the call graph information and produce a preferred function order that can be incorporated into the application link.  The compiler can only generate one kind of analysis information for a given invocation of the compiler.</HELP>
+        </OPTION>
+        
+        <OPTION tag='VERBOSE'>
+            <TYPE>simple</TYPE>
+            <NAME>--verbose</NAME>
+            <TIP>Display banner and function progress information</TIP>
+            <HELP>Display progress information and toolset version when executing.</HELP>
+            <RESETS>SUPER_QUIET</RESETS>
+            <RESETS>QUIET</RESETS>
+        </OPTION>
+        
+        <OPTION tag='VERBOSE_DIAGNOSTICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--verbose_diagnostics</NAME>
+            <ALIAS>-pdv</ALIAS>
+            <TIP>Verbose diagnostics</TIP>
+            <HELP>Enable verbose diagnostic information from the parser, including the source line of the error and an indicator of the error position within the line.</HELP>
+        </OPTION>
+        
+        <OPTION tag='WRITE_DIAGNOSTICS_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--write_diagnostics_file</NAME>
+            <ALIAS>-pdf</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <TIP>Output diagnostic to .err file</TIP>
+            <HELP>Write diagnostics to an .err file instead of the standard output.  The file name with be the same as the source file but with an .err extension.</HELP>
+        </OPTION>
+        
+        <MUTEX tag='MUTEX_QUIET_LEVEL'>
+            <NAME>Quiet Level</NAME>
+            
+            <SEVERITY>RESET</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>VERBOSE</MEMBER>
+            <MEMBER>QUIET</MEMBER>
+            <MEMBER>SUPER_QUIET</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_DEBUGGING_MODEL'>
+            <NAME>Debugging model</NAME>
+            
+            <SEVERITY>OVERRIDE</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>SYMDEBUG__DWARF</MEMBER>
+            <MEMBER>SYMDEBUG__SKELETAL</MEMBER>
+            <MEMBER>SYMDEBUG__NONE</MEMBER>
+            <MEMBER>SYMDEBUG__COFF</MEMBER>
+            <MEMBER>SYMDEBUG__PROFILE_COFF</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_SOURCE_INTERLIST'>
+            <NAME>Source interlist</NAME>
+            
+            <SEVERITY>OVERRIDE</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>SRC_INTERLIST</MEMBER>
+            <MEMBER>C_SRC_INTERLIST</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_C_DIALECT'>
+            <NAME>C Dialect</NAME>
+            
+            <SEVERITY>RESET</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>C89</MEMBER>
+            <MEMBER>C99</MEMBER>
+            <MEMBER>C11</MEMBER>
+            <MEMBER>KR_COMPATIBLE</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_C___DIALECT'>
+            <NAME>C++ Dialect</NAME>
+            
+            <SEVERITY>RESET</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>CPLUSPLUS14</MEMBER>
+            <MEMBER>CPLUSPLUS03</MEMBER>
+            <MEMBER>EMBEDDED_CPP</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_LANGUAGE_MODE'>
+            <NAME>Language mode</NAME>
+            
+            <SEVERITY>RESET</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>RELAXED_ANSI</MEMBER>
+            <MEMBER>STRICT_ANSI</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_PREPROCESSOR_ANALYSIS_OPTIONS'>
+            <NAME>Preprocessor Analysis Options</NAME>
+            
+            <SEVERITY>OVERRIDE</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>PREPROC_DEPENDENCY</MEMBER>
+            <MEMBER>PREPROC_INCLUDES</MEMBER>
+            <MEMBER>PREPROC_MACROS</MEMBER>
+        </MUTEX>
+        <MUTEX tag='MUTEX_FUNCTION_SUBSECTIONS'>
+            <NAME>Function Subsections</NAME>
+            
+            <SEVERITY>OVERRIDE</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>USE_DEAD_FUNCS_LIST</MEMBER>
+        </MUTEX>
+    </DEFINITIONS>
+    <CATEGORY tag='PROCESSOR'>
+        <NAME>Processor Options:</NAME>
+        
+        <MEMBER>SILICON_VERSION</MEMBER>
+        <MEMBER>CODE_MODEL</MEMBER>
+        <MEMBER>DATA_MODEL</MEMBER>
+        <MEMBER>NEAR_DATA</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='BASICOPT'>
+        <NAME>Optimization:</NAME>
+        
+        <MEMBER>OPT_LEVEL</MEMBER>
+        <MEMBER>OPT_FOR_SPEED</MEMBER>
+        <MEMBER>ALIGN_FOR_POWER</MEMBER>
+        <MEMBER>USE_HW_MPY</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='INCLUDES'>
+        <NAME>Include Options:</NAME>
+        
+        <MEMBER>INCLUDE_PATH</MEMBER>
+        <MEMBER>PREINCLUDE</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='ULP'>
+        <NAME>ULP Advisor:</NAME>
+        
+        <MEMBER>ADVICE__POWER</MEMBER>
+        <MEMBER>ADVICE__POWER_SEVERITY</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='ADVICE'>
+        <NAME>Advice Options:</NAME>
+        
+        <MEMBER>ADVICE__HW_CONFIG</MEMBER>
+        <MEMBER>ADVICE__HW_CONFIG_SEVERITY</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='DEFINES'>
+        <NAME>Predefined Symbols:</NAME>
+        
+        <MEMBER>DEFINE</MEMBER>
+        <MEMBER>UNDEFINE</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='ADVANCED'>
+        <NAME>Advanced Options:</NAME>
+        
+        <MEMBERCAT>CONTROL</MEMBERCAT>
+        <MEMBERCAT>SYMDEBUG</MEMBERCAT>
+        <MEMBERCAT>PARSER</MEMBERCAT>
+        <MEMBERCAT>PREPROC</MEMBERCAT>
+        <MEMBERCAT>PDIAG</MEMBERCAT>
+        <MEMBERCAT>MODEL</MEMBERCAT>
+        <MEMBERCAT>OPTIM</MEMBERCAT>
+        <MEMBERCAT>OCS</MEMBERCAT>
+        <MEMBERCAT>VCC</MEMBERCAT>
+        <MEMBERCAT>HOOK</MEMBERCAT>
+        <MEMBERCAT>FEEDBACK</MEMBERCAT>
+        <MEMBERCAT>LIB</MEMBERCAT>
+        <MEMBERCAT>GRAPH</MEMBERCAT>
+        <MEMBERCAT>ASM</MEMBERCAT>
+        <MEMBERCAT>FILE</MEMBERCAT>
+        <MEMBERCAT>DIRECTORY</MEMBERCAT>
+        <MEMBERCAT>FILEEXT</MEMBERCAT>
+        <MEMBERCAT>INTERNAL</MEMBERCAT>
+        <MEMBERCAT>DYNAMIC</MEMBERCAT>
+        <MEMBERCAT>CMDFILES</MEMBERCAT>
+        <MEMBERCAT>MISRA</MEMBERCAT>
+        <MEMBERCAT>AUX</MEMBERCAT>
+        <MEMBERCAT>MISC</MEMBERCAT>
+    </CATEGORY>
+    
+    <CATEGORY tag='CONTROL'>
+        <NAME>Control Options:</NAME>
+        
+        <MEMBER>COMPILE_ONLY</MEMBER>
+        <MEMBER>HELP</MEMBER>
+        <MEMBER>RUN_LINKER</MEMBER>
+        <MEMBER>SKIP_ASSEMBLER</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='SYMDEBUG'>
+        <NAME>Advanced Debug Options:</NAME>
+        
+        <MEMBER>MUTEX_DEBUGGING_MODEL</MEMBER>
+        <MEMBER>OPTIMIZE_WITH_DEBUG</MEMBER>
+        <MEMBER>SYMDEBUG__KEEP_ALL_TYPES</MEMBER>
+        <MEMBER>SYMDEBUG__DWARF_VERSION</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='PARSER'>
+        <NAME>Language Options:</NAME>
+        
+        <MEMBER>MUTEX_C_DIALECT</MEMBER>
+        <MEMBER>MUTEX_C___DIALECT</MEMBER>
+        <MEMBER>MUTEX_LANGUAGE_MODE</MEMBER>
+        <MEMBER>EXCEPTIONS</MEMBER>
+        <MEMBER>RTTI</MEMBER>
+        <MEMBER>CPP_DEFAULT</MEMBER>
+        <MEMBER>EXTERN_C_CAN_THROW</MEMBER>
+        <MEMBER>FLOAT_OPERATIONS_ALLOWED</MEMBER>
+        <MEMBER>PLAIN_CHAR</MEMBER>
+        <MEMBER>GCC</MEMBER>
+        <MEMBER>KEEP_UNNEEDED_STATICS</MEMBER>
+        <MEMBER>MULTIBYTE_CHARS</MEMBER>
+        <MEMBER>NO_INLINING</MEMBER>
+        <MEMBER>NO_INTRINSICS</MEMBER>
+        <MEMBER>PENDING_INSTANTIATIONS</MEMBER>
+        <MEMBER>PRINTF_SUPPORT</MEMBER>
+        <MEMBER>STATIC_TEMPLATE_INSTANTIATION</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='PREPROC'>
+        <NAME>Parser Preprocessing Options:</NAME>
+        
+        <MEMBER>PREPROC_ONLY</MEMBER>
+        <MEMBER>PREPROC_WITH_COMMENT</MEMBER>
+        <MEMBER>PREPROC_WITH_COMPILE</MEMBER>
+        <MEMBER>PREPROC_WITH_LINE</MEMBER>
+        <MEMBER>MUTEX_PREPROCESSOR_ANALYSIS_OPTIONS</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='PDIAG'>
+        <NAME>Diagnostic Options:</NAME>
+        
+        <MEMBER>BUFFER_DIAGNOSTICS</MEMBER>
+        <MEMBER>COMPILER_REVISION</MEMBER>
+        <MEMBER>DIAG_ERROR</MEMBER>
+        <MEMBER>DIAG_REMARK</MEMBER>
+        <MEMBER>DIAG_SUPPRESS</MEMBER>
+        <MEMBER>DIAG_WARNING</MEMBER>
+        <MEMBER>DIAG_WRAP</MEMBER>
+        <MEMBER>DISPLAY_ERROR_NUMBER</MEMBER>
+        <MEMBER>EMIT_WARNINGS_AS_ERRORS</MEMBER>
+        <MEMBER>ISSUE_REMARKS</MEMBER>
+        <MEMBER>NO_WARNINGS</MEMBER>
+        <MEMBER>SET_ERROR_LIMIT</MEMBER>
+        <MEMBER>TOOL_VERSION</MEMBER>
+        <MEMBER>VERBOSE_DIAGNOSTICS</MEMBER>
+        <MEMBER>WRITE_DIAGNOSTICS_FILE</MEMBER>
+        <MEMBER>MUTEX_QUIET_LEVEL</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='MODEL'>
+        <NAME>Runtime Model Options:</NAME>
+        
+        <MEMBER>MUTEX_FUNCTION_SUBSECTIONS</MEMBER>
+        <MEMBER>GEN_DATA_SUBSECTIONS</MEMBER>
+        <MEMBER>ENUM_TYPE</MEMBER>
+        <MEMBER>ABI</MEMBER>
+        <MEMBER>COMMON</MEMBER>
+        <MEMBER>GLOBAL_REGISTER</MEMBER>
+        <MEMBER>LARGE_MEMORY_MODEL</MEMBER>
+        <MEMBER>PROFILE__BREAKPT</MEMBER>
+        <MEMBER>PROFILE__POWER</MEMBER>
+        <MEMBER>RAMFUNC</MEMBER>
+        <MEMBER>SILICON_ERRATA</MEMBER>
+        <MEMBER>SMALL_ENUM</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='OPTIM'>
+        <NAME>Advanced Optimizations:</NAME>
+        
+        <MEMBER>FP_REASSOC</MEMBER>
+        <MEMBER>SAT_REASSOC</MEMBER>
+        <MEMBER>PROGRAM_LEVEL_COMPILE</MEMBER>
+        <MEMBER>CALL_ASSUMPTIONS</MEMBER>
+        <MEMBER>AUTO_INLINE</MEMBER>
+        <MEMBER>DISABLE_INLINING</MEMBER>
+        <MEMBER>DISABLE_INTERRUPTS_AROUND_HW_MPY</MEMBER>
+        <MEMBER>SINGLE_INLINE</MEMBER>
+        <MEMBER>ALIASED_VARIABLES</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='HOOK'>
+        <NAME>Entry/Exit Hook Options:</NAME>
+        
+        <MEMBER>ENTRY_HOOK</MEMBER>
+        <MEMBER>EXIT_HOOK</MEMBER>
+        <MEMBER>ENTRY_PARM</MEMBER>
+        <MEMBER>EXIT_PARM</MEMBER>
+        <MEMBER>REMOVE_HOOKS_WHEN_INLINING</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='FEEDBACK'>
+        <NAME>Feedback and Analysis Options:</NAME>
+        
+        <MEMBER>GEN_PROFILE_INFO</MEMBER>
+        <MEMBER>ANALYZE</MEMBER>
+        <MEMBER>ANALYZE_ONLY</MEMBER>
+        <MEMBER>USE_PROFILE_INFO</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LIB'>
+        <NAME>Library Function Assumptions:</NAME>
+        
+        <MEMBER>STD_LIB_FUNC_DEFINED</MEMBER>
+        <MEMBER>STD_LIB_FUNC_NOT_DEFINED</MEMBER>
+        <MEMBER>STD_LIB_FUNC_REDEFINED</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='ASM'>
+        <NAME>Assembler Options:</NAME>
+        
+        <MEMBER>KEEP_ASM</MEMBER>
+        <MEMBER>ASM_LISTING</MEMBER>
+        <MEMBER>MUTEX_SOURCE_INTERLIST</MEMBER>
+        <MEMBER>ASM_DEFINE</MEMBER>
+        <MEMBER>ASM_UNDEFINE</MEMBER>
+        <MEMBER>ABSOLUTE_LISTING</MEMBER>
+        <MEMBER>ASM_CROSS_REFERENCE_LISTING</MEMBER>
+        <MEMBER>ASM_DEPENDENCY</MEMBER>
+        <MEMBER>ASM_INCLUDES</MEMBER>
+        <MEMBER>COPY_FILE</MEMBER>
+        <MEMBER>CROSS_REFERENCE</MEMBER>
+        <MEMBER>INCLUDE_FILE</MEMBER>
+        <MEMBER>NO_CONST_CLINK</MEMBER>
+        <MEMBER>OUTPUT_ALL_SYMS</MEMBER>
+        <MEMBER>SYMS_IGNORE_CASE</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='FILE'>
+        <NAME>File Type Specifier:</NAME>
+        
+        <MEMBER>ASM_FILE</MEMBER>
+        <MEMBER>C_FILE</MEMBER>
+        <MEMBER>CPP_FILE</MEMBER>
+        <MEMBER>OBJ_FILE</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='DIRECTORY'>
+        <NAME>Directory Specifier:</NAME>
+        
+        <MEMBER>ABS_DIRECTORY</MEMBER>
+        <MEMBER>ASM_DIRECTORY</MEMBER>
+        <MEMBER>LIST_DIRECTORY</MEMBER>
+        <MEMBER>OBJ_DIRECTORY</MEMBER>
+        <MEMBER>OUTPUT_FILE</MEMBER>
+        <MEMBER>PP_DIRECTORY</MEMBER>
+        <MEMBER>TEMP_DIRECTORY</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='FILEEXT'>
+        <NAME>Default File Extensions:</NAME>
+        
+        <MEMBER>ASM_EXTENSION</MEMBER>
+        <MEMBER>C_EXTENSION</MEMBER>
+        <MEMBER>CPP_EXTENSION</MEMBER>
+        <MEMBER>LISTING_EXTENSION</MEMBER>
+        <MEMBER>OBJ_EXTENSION</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='CMDFILES'>
+        <NAME>Command Files:</NAME>
+        
+        <MEMBER>CMD_FILE</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='MISRA'>
+        <NAME>MISRA-C:2004:</NAME>
+        
+        <MEMBER>CHECK_MISRA</MEMBER>
+        <MEMBER>MISRA_ADVISORY</MEMBER>
+        <MEMBER>MISRA_REQUIRED</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='AUX'>
+        <NAME>Supplemental Information:</NAME>
+        
+        <MEMBER>GEN_ACP_RAW</MEMBER>
+        <MEMBER>GEN_ACP_XREF</MEMBER>
+        <MEMBER>GEN_CROSS_REFERENCE_LISTING</MEMBER>
+        <MEMBER>GEN_FUNC_INFO_LISTING</MEMBER>
+        <MEMBER>GEN_OPT_INFO</MEMBER>
+        <MEMBER>GEN_PREPROCESSOR_LISTING</MEMBER>
+        <MEMBER>SECTION_SIZES</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='MISC'>
+        <NAME>Miscellaneous:</NAME>
+        
+        <MEMBER>PARALLEL</MEMBER>
+    </CATEGORY>
+    
+</TOOL>
+<TOOL>
+    <TAG>LINKER</TAG>
+    <TOOLNAME>C/C++ LINKER</TOOLNAME>
+    <DEFINITIONS>
+        <OPTION tag='ABSOLUTE_EXE'>
+            <TYPE>simple</TYPE>
+            <NAME>--absolute_exe</NAME>
+            <ALIAS>-a</ALIAS>
+            <TIP>Produce absolute executable object file (default)</TIP>
+            <HELP>Produce absolute executable object file (default)</HELP>
+        </OPTION>
+        
+        <OPTION tag='ARG_SIZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--arg_size</NAME>
+            <ALIAS>--args</ALIAS>
+            <ARG>
+                <TYPE>HEXNUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>size</DESCRIPTION>
+            </ARG>
+            <TIP>Set C argc/argv memory size</TIP>
+            <HELP>Set C argc/argv memory size</HELP>
+        </OPTION>
+        
+        <OPTION tag='BUFFER_DIAGNOSTICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--buffer_diagnostics</NAME>
+            <ALIAS>-pdb</ALIAS>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <TIP>Line buffer diagnostic output</TIP>
+            <HELP>Line buffer diagnostic output to reduce message mixing when compiling in parallel.</HELP>
+        </OPTION>
+        
+        <OPTION tag='CINIT_COMPRESSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--cinit_compression</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>rle,lzss,off</DESCRIPTION>
+                <ONEOF>rle</ONEOF>
+                <ONEOF>lzss</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>lzss</DEFAULT>
+            </ARG>
+            <TIP>Compress ELF C style auto initialization data</TIP>
+            <HELP>Specify the compression to apply to the c auto initialization data</HELP>
+        </OPTION>
+        
+        <OPTION tag='CINIT_HOLD_WDT'>
+            <TYPE>simple</TYPE>
+            <NAME>--cinit_hold_wdt</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Hold watchdog timer during cinit auto-initialization</TIP>
+            <HELP>Hold watchdog timer during cinit portion of auto-initialization.  Select off to leave watchdog enabled during cinit auto-initialization.</HELP>
+        </OPTION>
+        
+        <OPTION tag='COMPRESS_DWARF'>
+            <TYPE>simple</TYPE>
+            <NAME>--compress_dwarf</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Aggressively reduce size of the DWARF information</TIP>
+            <HELP>Aggressively reduce the size of the DWARF information.  When this option used, the DWARF information is parsed and examined to look for and eliminate duplicate types, and builds a .debug_abbrev table for the whole program.</HELP>
+        </OPTION>
+        
+        <OPTION tag='COPY_COMPRESSION'>
+            <TYPE>simple</TYPE>
+            <NAME>--copy_compression</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>rle,lzss,off</DESCRIPTION>
+                <ONEOF>rle</ONEOF>
+                <ONEOF>lzss</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>lzss</DEFAULT>
+            </ARG>
+            <TIP>Compress ELF sections copied using copy tables</TIP>
+            <HELP>Overlays can be managed by using linker generated copy tables. To save ROM space, the linker can compress the data copied by copy tables. The compressed data is decompressed during copy.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--define</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>name=value</DESCRIPTION>
+            </ARG>
+            <TIP>Pre-define preprocessor macro _name_ to _value_</TIP>
+            <HELP>Pre-define preprocessor macro _name_ to _value_</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_ERROR'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_error</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as error</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as error</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_REMARK'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_remark</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as remark</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as remark</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_SUPPRESS'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_suppress</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Suppress diagnostic &lt;id&gt;</TIP>
+            <HELP>Suppress diagnostic &lt;id&gt;</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_WARNING'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_warning</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>id</DESCRIPTION>
+            </ARG>
+            <TIP>Treat diagnostic &lt;id&gt; as warning</TIP>
+            <HELP>Treat diagnostic &lt;id&gt; as warning</HELP>
+        </OPTION>
+        
+        <OPTION tag='DIAG_WRAP'>
+            <TYPE>simple</TYPE>
+            <NAME>--diag_wrap</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Wrap diagnostic messages</TIP>
+            <HELP>Set diagnostic messages to wrap at 79 columns (on) or not (off).</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISABLE_AUTO_RTS'>
+            <TYPE>simple</TYPE>
+            <NAME>--disable_auto_rts</NAME>
+            <TIP>Disable automatic RTS selection</TIP>
+            <HELP>Do not attempt to automatically select and link a runtime library.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISABLE_CLINK'>
+            <TYPE>simple</TYPE>
+            <NAME>--disable_clink</NAME>
+            <ALIAS>-j</ALIAS>
+            <TIP>Disable conditional linking and ignore .clink</TIP>
+            <HELP>Disable conditional linking; ignore all .clink directives.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISABLE_PP'>
+            <TYPE>simple</TYPE>
+            <NAME>--disable_pp</NAME>
+            <TIP>Don&apos;t use C preprocessor for command files</TIP>
+            <HELP>This disables preprocessing of linker command files.</HELP>
+        </OPTION>
+        
+        <OPTION tag='DISPLAY_ERROR_NUMBER'>
+            <TYPE>simple</TYPE>
+            <NAME>--display_error_number</NAME>
+            <TIP>Emit diagnostic identifier numbers</TIP>
+            <HELP>Emit diagnostic identifier numbers</HELP>
+        </OPTION>
+        
+        <OPTION tag='ECC'>
+            <TYPE>simple</TYPE>
+            <NAME>--ecc</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>off</DEFAULT>
+            </ARG>
+            <TIP>Control whether ECC generation is on or off</TIP>
+            <HELP>Control whether ECC generation is on or off</HELP>
+        </OPTION>
+        
+        <OPTION tag='ECC__DATA_ERROR'>
+            <TYPE>simple</TYPE>
+            <NAME>--ecc:data_error</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>(address|symbol+offset),[page,]bitmask</DESCRIPTION>
+            </ARG>
+            <TIP>Introduce bit errors</TIP>
+            <HELP>--ecc:data_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in the outfile. The bits to be flipped in the outfile are located in the unit at the specified offset. The offset is relative to either the origin of the page, or relative to the position of the base symbol, if specified. The default page is zero, and any page may be specified. The bits to be flipped at the specified location are indicated by set bits in the bitmask. In effect, the data in the outfile will be the bitwise-exclusive-or of the bitmask with original code or data. Bit errors can only be applied to initialized data, such as the contents of Flash memory. The effective address of the error must lie inside either the output memory range or the input memory range of an ECC specification.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ECC__ECC_ERROR'>
+            <TYPE>simple</TYPE>
+            <NAME>--ecc:ecc_error</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>(address|symbol+offset),[page,]bitmask</DESCRIPTION>
+            </ARG>
+            <TIP>Introduce bit errors in ECC memory</TIP>
+            <HELP>--ecc:ecc_error=(address|symbol+offset),[page,]bitmask - Introduce bit errors in corresponding ECC memory. This option behaves like the --ecc:data_error option, except that the bits are not flipped in the code/data memory at the specified location. Instead, the bits are flipped in the ECC memory area that corresponds to the specified location. The bitmask is 8 bits wide. In the presence of mirroring, bits will be flipped in all mirrored copies of the corresponding ECC byte. The effective address of the error must lie inside the input memory range of an ECC specification.</HELP>
+        </OPTION>
+        
+        <OPTION tag='EMIT_REFERENCES__FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--emit_references:file</NAME>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>file</DESCRIPTION>
+            </ARG>
+            <TIP>Specify the output path for section dependence information</TIP>
+            <HELP>When this option is set, the linker emits the following information: section size, symbols defined in the section, and references to symbols defined in the section from other sections. This information is sufficient to understand why each section has been included in the final link. The given file is used as a base name, and the format and file extension chosen by the --emit_references:format option.</HELP>
+        </OPTION>
+        
+        <OPTION tag='EMIT_REFERENCES__FORMAT'>
+            <TYPE>simple</TYPE>
+            <NAME>--emit_references:format</NAME>
+            <ARG>
+                <TYPE>ONEOFLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>TEXT</DESCRIPTION>
+                <ONEOF>TEXT</ONEOF>
+            </ARG>
+            <TIP>Specify the format for section reference information</TIP>
+            <HELP>When --emit_references:file is set, this option determines the format and file extension for the generated reference information file. TEXT is reasonable for manual inspection, much like the output of the --map_file option. TEXT uses a .txt extension.</HELP>
+        </OPTION>
+        
+        <OPTION tag='EMIT_WARNINGS_AS_ERRORS'>
+            <TYPE>simple</TYPE>
+            <NAME>--emit_warnings_as_errors</NAME>
+            <ALIAS>-pdew</ALIAS>
+            <TIP>Treat warnings as errors</TIP>
+            <HELP>Treat warnings as errors</HELP>
+            <CONFLICT>NO_WARNINGS</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='ENDDASHGROUP'>
+            <TYPE>simple</TYPE>
+            <NAME>--end-group</NAME>
+            <TIP>End reread library group</TIP>
+            <HELP>End reread library group</HELP>
+        </OPTION>
+        
+        <OPTION tag='ENTRY_POINT'>
+            <TYPE>simple</TYPE>
+            <NAME>--entry_point</NAME>
+            <ALIAS>-e</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>symbol</DESCRIPTION>
+            </ARG>
+            <TIP>Specify program entry point for the output module</TIP>
+            <HELP>Specify program entry point for the output module</HELP>
+            <CONFLICT>NO_ENTRY_POINT</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='FILL_VALUE'>
+            <TYPE>simple</TYPE>
+            <NAME>--fill_value</NAME>
+            <ALIAS>-f</ALIAS>
+            <ARG>
+                <TYPE>HEXNUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>value</DESCRIPTION>
+            </ARG>
+            <TIP>Default fill value for holes in output sections</TIP>
+            <HELP>Set the default fill value for filling holes in output sections.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GENERATE_DEAD_FUNCS_LIST'>
+            <TYPE>simple</TYPE>
+            <NAME>--generate_dead_funcs_list</NAME>
+            <HIDE_OPTION>true</HIDE_OPTION>
+            <DEPRECATE_OPTION>
+                <SEVERITY>5</SEVERITY>
+                <DIAGNOSTIC>The --generate_dead_funcs_list option is no longer supported.</DIAGNOSTIC>
+            </DEPRECATE_OPTION>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>fname</DESCRIPTION>
+            </ARG>
+            <TIP>List removed dead functions into file</TIP>
+            <HELP>Create a list, into the file &lt;fname&gt;, of the routines and sections that are dead (never referenced) and were removed by the linker.  The default &lt;fname&gt; is &apos;dead_funcs.txt&apos;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='GLOBALIZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--globalize</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>pattern</DESCRIPTION>
+            </ARG>
+            <TIP>Do not localize symbols matching pattern</TIP>
+            <HELP>The option &apos;--localize=l_pattern&apos; makes the symbols matching the l_pattern hidden. The &apos;--globalilze=g_pattern&apos; option excludes symbols matching g_pattern from symbol localization provided g_pattern is more restrictive than l_pattern. </HELP>
+        </OPTION>
+        
+        <OPTION tag='HEAP_SIZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--heap_size</NAME>
+            <ALIAS>-heap</ALIAS>
+            <ALIAS>--heap</ALIAS>
+            <ARG>
+                <TYPE>HEXNUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>size</DESCRIPTION>
+            </ARG>
+            <TIP>Heap size for C/C++ dynamic memory allocation</TIP>
+            <HELP>Specify the maximum heap size for C/C++ dynamic memory allocation.</HELP>
+        </OPTION>
+        
+        <OPTION tag='HIDE'>
+            <TYPE>simple</TYPE>
+            <NAME>--hide</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>pattern</DESCRIPTION>
+            </ARG>
+            <TIP>Hide symbols matching pattern</TIP>
+            <HELP>Hide the symbols matching the pattern by changing the name to empty string</HELP>
+        </OPTION>
+        
+        <OPTION tag='ISSUE_REMARKS'>
+            <TYPE>simple</TYPE>
+            <NAME>--issue_remarks</NAME>
+            <TIP>Issue remarks</TIP>
+            <HELP>Issue remarks</HELP>
+        </OPTION>
+        
+        <OPTION tag='LIBRARY'>
+            <TYPE>simple</TYPE>
+            <NAME>--library</NAME>
+            <PREFERREDALIAS>-l</PREFERREDALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>file</DESCRIPTION>
+            </ARG>
+            <TIP>Include library file or command file as input</TIP>
+            <HELP>Include library file or command file as input</HELP>
+        </OPTION>
+        
+        <OPTION tag='LINKER_HELP'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--linker_help</NAME>
+            <ALIAS>-help</ALIAS>
+            <ALIAS>--help</ALIAS>
+            <TIP>Display usage information</TIP>
+            <HELP>Display usage information.  Followed by another option, will display detailed information on that option.</HELP>
+        </OPTION>
+        
+        <OPTION tag='LOCALIZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--localize</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>pattern</DESCRIPTION>
+            </ARG>
+            <TIP>Make the symbols matching pattern local</TIP>
+            <HELP>Given a symbol name pattern, make all the symbols matching this pattern local</HELP>
+        </OPTION>
+        
+        <OPTION tag='MAKE_GLOBAL'>
+            <TYPE>simple</TYPE>
+            <NAME>--make_global</NAME>
+            <ALIAS>-g</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>symbol</DESCRIPTION>
+            </ARG>
+            <TIP>Don&apos;t make global symbol static if -h is specified</TIP>
+            <HELP>Don&apos;t make global symbol static if -h is specified</HELP>
+        </OPTION>
+        
+        <OPTION tag='MAKE_STATIC'>
+            <TYPE>simple</TYPE>
+            <NAME>--make_static</NAME>
+            <ALIAS>-h</ALIAS>
+            <TIP>Make all global symbols static</TIP>
+            <HELP>Make all global symbols static</HELP>
+        </OPTION>
+        
+        <OPTION tag='MAP_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--map_file</NAME>
+            <PREFERREDALIAS>-m</PREFERREDALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>file</DESCRIPTION>
+            </ARG>
+            <TIP>Link information (map) listed into &lt;file&gt;</TIP>
+            <HELP>Produce a listing of all input and output sections into &lt;file&gt;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='MAPFILE_CONTENTS'>
+            <TYPE>simple</TYPE>
+            <NAME>--mapfile_contents</NAME>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>attribute</DESCRIPTION>
+            </ARG>
+            <TIP>Display attribute settings in map file</TIP>
+            <HELP>Enable the display of &lt;attribute&gt; or disable with no&lt;attribute&gt; in the linker generated map file.  Multiple attributes can be specified by separating them with commas (e.g. --mapfile_contents=sections,nosymbols).  Type --mapfile_contents=help for a list of attributes.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_DEMANGLE'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_demangle</NAME>
+            <TIP>Don&apos;t demangle symbol names in diagnostics</TIP>
+            <HELP>Don&apos;t demangle symbol names in diagnostics</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_SYM_MERGE'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_sym_merge</NAME>
+            <ALIAS>-b</ALIAS>
+            <TIP>No type merging in symbolic debugging information</TIP>
+            <HELP>Disable type merging in symbolic debugging information.</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_SYMTABLE'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_symtable</NAME>
+            <ALIAS>-s</ALIAS>
+            <TIP>Strip symbol table and line number entries</TIP>
+            <HELP>Strip symbol table and line number entries</HELP>
+        </OPTION>
+        
+        <OPTION tag='NO_WARNINGS'>
+            <TYPE>simple</TYPE>
+            <NAME>--no_warnings</NAME>
+            <TIP>Suppress warnings</TIP>
+            <HELP>Suppress warnings</HELP>
+            <CONFLICT>EMIT_WARNINGS_AS_ERRORS</CONFLICT>
+        </OPTION>
+        
+        <OPTION tag='OUTPUT_FILE'>
+            <TYPE>simple</TYPE>
+            <NAME>--output_file</NAME>
+            <PREFERREDALIAS>-o</PREFERREDALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>file</DESCRIPTION>
+            </ARG>
+            <TIP>Specify output file name</TIP>
+            <HELP>Full filename of the output file.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PREFERRED_ORDER'>
+            <TYPE>simple</TYPE>
+            <NAME>--preferred_order</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>function</DESCRIPTION>
+            </ARG>
+            <TIP>Add &lt;function&gt; to preferred placement order list</TIP>
+            <HELP>Insert a function into the preferred function order list for placement.  Functions that are close to each other in the preferred function order list will tend to be placed close together (increase program locality between them).  Static functions of the same name can be distinguished from each other by prefixing the function name with the path and file in which the function is defined followed by a &apos;:&apos; character to delimit the beginning of the function name.</HELP>
+        </OPTION>
+        
+        <OPTION tag='PRIORITY'>
+            <TYPE>simple</TYPE>
+            <NAME>--priority</NAME>
+            <ALIAS>-priority</ALIAS>
+            <TIP>Search libraries in priority order</TIP>
+            <HELP>Search libraries in priority order</HELP>
+        </OPTION>
+        
+        <OPTION tag='RAM_MODEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--ram_model</NAME>
+            <ALIAS>-cr</ALIAS>
+            <TIP>Link using RAM autoinitialization model</TIP>
+            <HELP>Link using RAM autoinitialization model</HELP>
+            <RESETS>ROM_MODEL</RESETS>
+        </OPTION>
+        
+        <OPTION tag='RELOCATABLE'>
+            <TYPE>simple</TYPE>
+            <NAME>--relocatable</NAME>
+            <ALIAS>-r</ALIAS>
+            <TIP>Produce a relocatable output module</TIP>
+            <HELP>Produce a relocatable output module</HELP>
+        </OPTION>
+        
+        <OPTION tag='REREAD_LIBS'>
+            <TYPE>simple</TYPE>
+            <NAME>--reread_libs</NAME>
+            <ALIAS>-x</ALIAS>
+            <TIP>Reread libraries; resolve backward references</TIP>
+            <HELP>Reread libraries; resolve backward references</HELP>
+        </OPTION>
+        
+        <OPTION tag='RETAIN'>
+            <TYPE>simple</TYPE>
+            <NAME>--retain</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>sym_or_scn_spec</DESCRIPTION>
+            </ARG>
+            <TIP>Specify symbols/sections to be retained by linker</TIP>
+            <HELP>When --unused_section_elimination is enabled, the ELF linker does not include a section in the final link if it is not needed in the executable to resolve references. This option can be used to tell the linker to retain a list of sections that would otherwise be not retained. This option accepts the wild cards &apos;*&apos; and &apos;?&apos; and when wild cards are used, the argument should be in quotes. The following option parameters are accepted:
+
+--retain=symbol_spec retains sections that define symbol matching the argument. For ex, --retain=&apos;init*&apos; retains sections that define symbols that start with &apos;init&apos;. User may not specify --retain=&apos;*&apos;.
+
+--retain=file_spec(scn_spec [,scn_spec ...]) retains sections matching scn_spec(s) from files matching file_spec. For ex, the argument &apos;*(.initvec)&apos; causes the linker to retain .initvec sections from all input files.
+
+NOTE: User can specify --retain=&apos;*(*)&apos; to retain all the sections from all the input object files. Note that this does not prevent sections from library members from being optimized out. If you want to totally disable unused section elimination, please use --unused_section_elimination=off.
+
+--retain=ar_spec&lt;mem_spec, [mem_spec ...]&gt;(scn_spec, [scn_spec ...]) retains sections matching scn_spec(s) from members matching mem_spec(s) from archive files matching ar_spec. For ex, rts32eabi.lib&lt;printf.obj&gt;(.text) causes the linker to retain .text section from printf.obj in rts32eabi.lib. If the library is specified with -l option (-lrts32eabi.lib) the library search path is used to search the library. User may not specify &apos;*&lt;*&gt;(*)&apos;. </HELP>
+        </OPTION>
+        
+        <OPTION tag='ROM_MODEL'>
+            <TYPE>simple</TYPE>
+            <NAME>--rom_model</NAME>
+            <ALIAS>-c</ALIAS>
+            <TIP>Link using ROM autoinitialization model</TIP>
+            <HELP>Link using ROM autoinitialization model</HELP>
+            <RESETS>RAM_MODEL</RESETS>
+        </OPTION>
+        
+        <OPTION tag='RUN_ABS'>
+            <TYPE>cmdline</TYPE>
+            <NAME>--run_abs</NAME>
+            <ALIAS>-abs</ALIAS>
+            <TIP>Produce absolute listing file</TIP>
+            <HELP>Produce absolute listing file</HELP>
+        </OPTION>
+        
+        <OPTION tag='SCAN_LIBRARIES'>
+            <TYPE>simple</TYPE>
+            <NAME>--scan_libraries</NAME>
+            <ALIAS>-scanlibs</ALIAS>
+            <TIP>Scan libraries for duplicate symbol definitions</TIP>
+            <HELP>Check whether symbol definitions that are pulled into the link are duplicated in any of the libraries included in the build.  This information is typically ignored as the linker will pull in the first definition it encounters.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SEARCH_PATH'>
+            <TYPE>simple</TYPE>
+            <NAME>--search_path</NAME>
+            <PREFERREDALIAS>-i</PREFERREDALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>dir</DESCRIPTION>
+            </ARG>
+            <TIP>Add &lt;dir&gt; to library search path</TIP>
+            <HELP>Alter the library-search algorithm to look in dir before looking in the default location.  This option must appear before the -l option.</HELP>
+        </OPTION>
+        
+        <OPTION tag='SET_ERROR_LIMIT'>
+            <TYPE>simple</TYPE>
+            <NAME>--set_error_limit</NAME>
+            <ARG>
+                <TYPE>NUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>count</DESCRIPTION>
+            </ARG>
+            <TIP>Set error limit to &lt;count&gt;</TIP>
+            <HELP>Set error limit to &lt;count&gt;</HELP>
+        </OPTION>
+        
+        <OPTION tag='STACK_SIZE'>
+            <TYPE>simple</TYPE>
+            <NAME>--stack_size</NAME>
+            <ALIAS>-stack</ALIAS>
+            <ALIAS>--stack</ALIAS>
+            <ARG>
+                <TYPE>HEXNUMBER</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>size</DESCRIPTION>
+            </ARG>
+            <TIP>Set C system stack size</TIP>
+            <HELP>Set C system stack size</HELP>
+        </OPTION>
+        
+        <OPTION tag='STARTDASHGROUP'>
+            <TYPE>simple</TYPE>
+            <NAME>--start-group</NAME>
+            <TIP>Begin reread library group; resolve backward references</TIP>
+            <HELP>Begin reread library group; resolve backward references</HELP>
+        </OPTION>
+        
+        <OPTION tag='STRICT_COMPATIBILITY'>
+            <TYPE>simple</TYPE>
+            <NAME>--strict_compatibility</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Strict compatibility checking</TIP>
+            <HELP>Strict compatibility checking</HELP>
+        </OPTION>
+        
+        <OPTION tag='SYMBOL_MAP'>
+            <TYPE>simple</TYPE>
+            <NAME>--symbol_map</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>refname=defname</DESCRIPTION>
+            </ARG>
+            <TIP>Specify a symbol map, mapping refname to defname</TIP>
+            <HELP>Symbol mapping allows a symbol reference to be resolved by a symbol with different name. Symbol mapping allows functions to be overridden with alternate definitions. This feature can be used to patch in alternate implementations, which provide patches (bug fixes) or alternate functionality. For example, the option --symbol_map=&apos;foo=foo_patch&apos; makes the linker resolve any references to foo by the definition foo_patch.</HELP>
+        </OPTION>
+        
+        <OPTION tag='UNDEF_SYM'>
+            <TYPE>simple</TYPE>
+            <NAME>--undef_sym</NAME>
+            <ALIAS>-u</ALIAS>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>sym</DESCRIPTION>
+            </ARG>
+            <TIP>Add &lt;sym&gt; to symbol table as an unresolved symbol</TIP>
+            <HELP>Add &lt;sym&gt; to symbol table as an unresolved symbol</HELP>
+        </OPTION>
+        
+        <OPTION tag='UNDEFINE'>
+            <TYPE>simple</TYPE>
+            <NAME>--undefine</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>name</DESCRIPTION>
+            </ARG>
+            <TIP>Undefine preprocessor macro _name_</TIP>
+            <HELP>Undefine preprocessor macro _name_</HELP>
+        </OPTION>
+        
+        <OPTION tag='UNHIDE'>
+            <TYPE>simple</TYPE>
+            <NAME>--unhide</NAME>
+            <ARG>
+                <TYPE>STRINGLIST</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>pattern</DESCRIPTION>
+            </ARG>
+            <TIP>Exclude symbols matching pattern from hiding</TIP>
+            <HELP>The option --hide=hide_pattern makes the symbols matching the hide_pattern hidden. The --unhide=unhide_pattern option excludes symbols matching unhide_pattern from symbol hiding provided unhide_pattern is more restrictive than hide_pattern. </HELP>
+        </OPTION>
+        
+        <OPTION tag='UNUSED_SECTION_ELIMINATION'>
+            <TYPE>simple</TYPE>
+            <NAME>--unused_section_elimination</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Eliminate sections not needed in the executable</TIP>
+            <HELP>In order to minimize memory use, the linker does not include a section that is not needed to resolve any references in the final executable. --unused_section_elimination=off can be used to disable this optimization.</HELP>
+        </OPTION>
+        
+        <OPTION tag='USE_HW_MPY'>
+            <TYPE>simple</TYPE>
+            <NAME>--use_hw_mpy</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>16,32,F5,none</DESCRIPTION>
+                <ONEOF>16</ONEOF>
+                <ONEOF>32</ONEOF>
+                <ONEOF>F5</ONEOF>
+                <ONEOF>none</ONEOF>
+                <DEFAULT>16</DEFAULT>
+            </ARG>
+            <TIP>Deprecated: Now a compiler option instead of linker option</TIP>
+            <HELP>Deprecated:  This option was changed from a linker option to a compiler option to allow for inlining of hardware multiply calls. Setting this option here only enables using RTS hw mpy routines instead of software mpy routines.  It will not allow for possible inlining of hardware mpy calls.</HELP>
+        </OPTION>
+        
+        <OPTION tag='VERBOSE_DIAGNOSTICS'>
+            <TYPE>simple</TYPE>
+            <NAME>--verbose_diagnostics</NAME>
+            <TIP>Verbose diagnostics</TIP>
+            <HELP>Verbose diagnostics</HELP>
+        </OPTION>
+        
+        <OPTION tag='WARN_SECTIONS'>
+            <TYPE>simple</TYPE>
+            <NAME>--warn_sections</NAME>
+            <ALIAS>-w</ALIAS>
+            <TIP>Warn if an unspecified output section is created</TIP>
+            <HELP>Warn if an unspecified output section is created</HELP>
+        </OPTION>
+        
+        <OPTION tag='XML_LINK_INFO'>
+            <TYPE>simple</TYPE>
+            <NAME>--xml_link_info</NAME>
+            <ALIAS>-xml_link_info</ALIAS>
+            <ARG>
+                <TYPE>STRING</TYPE>
+                <STATUS>required</STATUS>
+                <DESCRIPTION>file</DESCRIPTION>
+            </ARG>
+            <TIP>Detailed link information data-base into &lt;file&gt;</TIP>
+            <HELP>Produce a detailed link information data-base into the file named &lt;file&gt;.</HELP>
+        </OPTION>
+        
+        <OPTION tag='ZERO_INIT'>
+            <TYPE>simple</TYPE>
+            <NAME>--zero_init</NAME>
+            <ARG>
+                <TYPE>ONEOF</TYPE>
+                <STATUS>optional</STATUS>
+                <DESCRIPTION>on,off</DESCRIPTION>
+                <ONEOF>on</ONEOF>
+                <ONEOF>off</ONEOF>
+                <DEFAULT>on</DEFAULT>
+            </ARG>
+            <TIP>Zero initialize ELF uninitialized sections</TIP>
+            <HELP>This option indicates that the linker should generate compressed cinit table records that zero initializes ELF uninitialized sections during boot. This option is ignored if --rom_model option is not specified.</HELP>
+        </OPTION>
+        
+        <MUTEX tag='MUTEX_INITIALIZATION_MODEL'>
+            <NAME>Initialization model</NAME>
+            
+            <SEVERITY>RESET</SEVERITY>
+            <STATUS>optional</STATUS>
+            <MEMBER>ROM_MODEL</MEMBER>
+            <MEMBER>RAM_MODEL</MEMBER>
+        </MUTEX>
+    </DEFINITIONS>
+    <CATEGORY tag='LNKBASIC'>
+        <NAME>Basic Options:</NAME>
+        
+        <MEMBER>EMIT_REFERENCES__FILE</MEMBER>
+        <MEMBER>EMIT_REFERENCES__FORMAT</MEMBER>
+        <MEMBER>MAP_FILE</MEMBER>
+        <MEMBER>OUTPUT_FILE</MEMBER>
+        <MEMBER>HEAP_SIZE</MEMBER>
+        <MEMBER>STACK_SIZE</MEMBER>
+        <MEMBER>CINIT_HOLD_WDT</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKDIR'>
+        <NAME>File Search Path:</NAME>
+        
+        <MEMBER>LIBRARY</MEMBER>
+        <MEMBER>SEARCH_PATH</MEMBER>
+        <MEMBER>ENDDASHGROUP</MEMBER>
+        <MEMBER>PRIORITY</MEMBER>
+        <MEMBER>REREAD_LIBS</MEMBER>
+        <MEMBER>STARTDASHGROUP</MEMBER>
+        <MEMBER>DISABLE_AUTO_RTS</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKADV'>
+        <NAME>Advanced Options:</NAME>
+        
+        <MEMBERCAT>LNKCPP</MEMBERCAT>
+        <MEMBERCAT>LNKDIAG</MEMBERCAT>
+        <MEMBERCAT>LNKOUTF</MEMBERCAT>
+        <MEMBERCAT>LNKSYM</MEMBERCAT>
+        <MEMBERCAT>LNKRTENV</MEMBERCAT>
+        <MEMBERCAT>LNKMISC</MEMBERCAT>
+        <MEMBERCAT>LNKINT</MEMBERCAT>
+        <MEMBERCAT>DYNAMIC</MEMBERCAT>
+        <MEMBERCAT>LNKULP</MEMBERCAT>
+        <MEMBERCAT>LNKADVICE</MEMBERCAT>
+        <MEMBERCAT>PLNK</MEMBERCAT>
+        <MEMBERCAT>LNKOPT</MEMBERCAT>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKCPP'>
+        <NAME>Command File Preprocessing:</NAME>
+        
+        <MEMBER>DEFINE</MEMBER>
+        <MEMBER>UNDEFINE</MEMBER>
+        <MEMBER>DISABLE_PP</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKDIAG'>
+        <NAME>Diagnostics:</NAME>
+        
+        <MEMBER>BUFFER_DIAGNOSTICS</MEMBER>
+        <MEMBER>DIAG_ERROR</MEMBER>
+        <MEMBER>DIAG_REMARK</MEMBER>
+        <MEMBER>DIAG_SUPPRESS</MEMBER>
+        <MEMBER>DIAG_WARNING</MEMBER>
+        <MEMBER>DIAG_WRAP</MEMBER>
+        <MEMBER>DISPLAY_ERROR_NUMBER</MEMBER>
+        <MEMBER>EMIT_WARNINGS_AS_ERRORS</MEMBER>
+        <MEMBER>ISSUE_REMARKS</MEMBER>
+        <MEMBER>NO_DEMANGLE</MEMBER>
+        <MEMBER>NO_WARNINGS</MEMBER>
+        <MEMBER>SET_ERROR_LIMIT</MEMBER>
+        <MEMBER>VERBOSE_DIAGNOSTICS</MEMBER>
+        <MEMBER>WARN_SECTIONS</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKOUTF'>
+        <NAME>Linker Output:</NAME>
+        
+        <MEMBER>ABSOLUTE_EXE</MEMBER>
+        <MEMBER>ECC</MEMBER>
+        <MEMBER>ECC__DATA_ERROR</MEMBER>
+        <MEMBER>ECC__ECC_ERROR</MEMBER>
+        <MEMBER>GENERATE_DEAD_FUNCS_LIST</MEMBER>
+        <MEMBER>MAPFILE_CONTENTS</MEMBER>
+        <MEMBER>RELOCATABLE</MEMBER>
+        <MEMBER>RUN_ABS</MEMBER>
+        <MEMBER>XML_LINK_INFO</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKSYM'>
+        <NAME>Symbol Management:</NAME>
+        
+        <MEMBER>ENTRY_POINT</MEMBER>
+        <MEMBER>GLOBALIZE</MEMBER>
+        <MEMBER>HIDE</MEMBER>
+        <MEMBER>LOCALIZE</MEMBER>
+        <MEMBER>MAKE_GLOBAL</MEMBER>
+        <MEMBER>MAKE_STATIC</MEMBER>
+        <MEMBER>NO_SYM_MERGE</MEMBER>
+        <MEMBER>NO_SYMTABLE</MEMBER>
+        <MEMBER>RETAIN</MEMBER>
+        <MEMBER>SCAN_LIBRARIES</MEMBER>
+        <MEMBER>SYMBOL_MAP</MEMBER>
+        <MEMBER>UNDEF_SYM</MEMBER>
+        <MEMBER>UNHIDE</MEMBER>
+        <MEMBER>USE_HW_MPY</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKRTENV'>
+        <NAME>Runtime Environment:</NAME>
+        
+        <MEMBER>ARG_SIZE</MEMBER>
+        <MEMBER>CINIT_COMPRESSION</MEMBER>
+        <MEMBER>COPY_COMPRESSION</MEMBER>
+        <MEMBER>FILL_VALUE</MEMBER>
+        <MEMBER>MUTEX_INITIALIZATION_MODEL</MEMBER>
+    </CATEGORY>
+    
+    <CATEGORY tag='LNKMISC'>
+        <NAME>Miscellaneous:</NAME>
+        
+        <MEMBER>COMPRESS_DWARF</MEMBER>
+        <MEMBER>DISABLE_CLINK</MEMBER>
+        <MEMBER>LINKER_HELP</MEMBER>
+        <MEMBER>PREFERRED_ORDER</MEMBER>
+        <MEMBER>STRICT_COMPATIBILITY</MEMBER>
+        <MEMBER>UNUSED_SECTION_ELIMINATION</MEMBER>
+        <MEMBER>ZERO_INIT</MEMBER>
+    </CATEGORY>
+    
+</TOOL>
+</TOOLSET>

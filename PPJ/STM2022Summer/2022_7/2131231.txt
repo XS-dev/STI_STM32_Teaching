@@ -1,0 +1,15 @@
+PA0
+PA2
+
+
+PC0
+PC1
+
+PE7
+PE8
+
+PB12
+PB13
+PB14
+PB15
+

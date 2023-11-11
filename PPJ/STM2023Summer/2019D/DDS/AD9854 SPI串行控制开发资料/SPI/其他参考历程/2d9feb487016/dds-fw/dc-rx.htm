@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0042)http://users.tkk.fi/~jwagner/electr/dc-rx/ -->
+<HTML><HEAD><TITLE></TITLE>
+<META http-equiv=Content-Type content="text/html; charset=gb2312">
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY bgColor=white leftMargin=50 topMargin=30 marginheight="30" 
+marginwidth="50"><FONT face=Arial size=3>
+<H2>General coverage receiver 0-50Mhz (ULF to HF/VHF)<BR>based on AD9854 DDS 
+direct digital synthesis chip<BR>
+<HR noShade SIZE=1>
+</H2><U><FONT size=4>Overview</FONT></U><BR><BR>This is basically a direct 
+conversion receiver. The LO frequency synthesis is based on the AD9854 DDS chip 
+(I/Q quadrature direct digital synthesis, visit <A 
+href="http://www.analog.com/">http://www.analog.com/</A> for the datasheet and 
+sample orders).<BR><BR>There are two detectors: one is a conventional AD831 
+mixer based downconversion board, the other is a Tayloe detector i.e. an N-path 
+sampling filter (<A 
+href="http://www.flex-radio.com/">http://www.flex-radio.com/</A>, see SDR 
+Articles section). An upwards sampling system as in the 4th SDR paper could be 
+used for the transmitter section.<BR><BR>The DDS is programmed and controlled by 
+a MSP430F149 microcontroller (MSP430 series, 60kB flash, 256B ram, 48 I/O pins). 
+Peripherals of the DC-RX system include: a 2-line LCD, a standard PC keyboard, a 
+PC RS-232 cable for remote control, and an inexpensive DIY <A 
+href="http://users.tkk.fi/~jwagner/electr/rotary-enc/">tuning 
+wheel</A>.<BR><BR>The mainboard contains all user interface and DDS related 
+parts and may be used for other purposes too, t.ex. as a LO for another rx/tx or 
+for phase modulation, chirping, keying, and using other features of 
+AD9854.<BR><BR><BR>
+<TABLE width="100%" border=0>
+  <TBODY>
+  <TR>
+    <TD vAlign=top width="50%"><U><FONT size=4>Dev tools</FONT></U><BR><BR>All 
+      software tools are freeware or GPL.<BR><BR>Schematics and PCB layout: <A 
+      href="http://www.cadsoft.de/">Eagle</A> (english and german, Linux + 
+      Windows)<BR><BR>MSP430 firmware upload and debug: <A 
+      href="http://www.noicedebugger.com/">NoICE remote debugger</A><BR><BR>JTAG 
+      programming adapter: <A 
+      href="http://www.olimex.com/dev/msp-jtag.html">Olimex MSP430-jtag</A> for 
+      schematics. I built it without the TPS77030 and MCP601, as the uC &amp; 
+      DDS boards draw way too much current (500mA..1A) to be supplied by the PC 
+      parallel port.<BR><BR>C/C++ compiler: <A 
+      href="http://mspgcc.sourceforge.net/">msp430-gcc</A> gnu c toolchain for 
+      MSP430 (best compiler for this purpose, but no graphic IDE), IAR MSP430 
+      tools from <A href="http://www.ti.com/msp430">Texas Instruments</A> (4kB 
+      limit!), or <A href="http://www.ide430.com/">IDE430</A><BR><BR><BR></TD>
+    <TD vAlign=top width="50%"><U><FONT size=4>Libraries</FONT></U><BR><BR><A 
+      href="http://users.tkk.fi/~jwagner/electr/dc-rx/analog-devices-dds.lbr">analog-devices-dds.lbr</A> 
+      : <B>AD9854</B> library file for Eagle. Additionally contains the classic 
+      <B>AD831</B> low distortion high IP3 doubly-balanced mixer<BR><BR><A 
+      href="http://users.tkk.fi/~jwagner/electr/dc-rx/texas-msp.lbr">texas-msp.lbr</A> 
+      : <B>MSP430F149</B> library file for Eagle (same pin-out for 
+      MSP430F147/148/149). Additionally contains the <B>MAX3221</B> ultra low 
+      standby current RS-232 driver/receiver, <B>INA163</B> low noise low 
+      distortion instrumental amplifier, <B>TL714</B> open drain fast 50MHz 
+      analog comparator, and <B>TPS75833</B> 3.3V 3A lo-drop fast transient 
+      response regulator.<BR><BR></TD></TR>
+  <TR>
+    <TD vAlign=top width="50%"><U><FONT size=4>Schematics</FONT></U><BR><BR>
+      <UL>
+        <LI>mainboard with uC and DDS<BR><SMALL>fully working final design, LCD 
+        and PC keyboard optional, main control via RS232 and the tuning wheel. 
+        The PCB has been cleaned up a bit now (10/04/04).</SMALL><BR><BR>Eagle 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-uC-9854-combo.sch">sch</A>] 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-uC-9854-combo.brd">brd</A>]<BR>GIF 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/mb-sch.gif">schematic</A>] 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/mb-top-bot.gif">PCB</A>] 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/mb-top-pts.gif">top 
+        parts</A>] [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/mb-bot-pts.gif">bot 
+        parts</A>]<BR>and <A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/pics/mainboard.jpg">photo 
+        1</A>, <A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/pics/uC_DDS_combo.jpg">photo 
+        2</A> (heatsink solution)<BR><BR><U>update:</U> <A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/work/msp430-DDSboard.zip">new 
+        Eagle files</A> for a slightly updated board (LCD connector, external 5V 
+        supply, JTAG with TSTCLK signal, connectors rearranged a bit) 
+        <BR><U>info update:</U> 08/2005, Barry KK4VT pointed out an error in the 
+        AT keyboard pins, on the brd and sch the keyboard should go to P2.6 and 
+        P2.7 instead of P2.5 and P2.6 - I'll try to update the firmware soon. 
+        Second, FIN1028 doesn't put out 50% duty squarewaves, probably because 
+        DDS output resistors and filter double-termination should be as in 
+        flex-radio article 4, or then some other better solution. Working on 
+        it...<BR><BR>
+        <LI>AD831-based analog mixer<BR><SMALL>non-optimal prototype, mixer 
+        appears to be overdriven somehow, reception quality reminds of rain 
+        barrel sound...</SMALL><BR><BR>Eagle [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-scanner-RFmixer.sch">sch</A>] 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-scanner-RFmixer.brd">brd</A>]<BR><BR>
+        <LI>"digital" downsampling Tayloe mixer v1.5<BR><SMALL>Works nicely. The 
+        sch and PCB have been updated and cleaned. The center-tapped 1:1:1 
+        transformer ('isolated balun') requires a proper RF ferrite, small 
+        Amidon balun cores will do just fine. The board output needs about +40dB 
+        AF (e.g. PC soundcard microphone input). Features alternative inputs: 
+        I/Q LVDS &gt;200mV, I/Q LVTTL 3.3V, single TTL 5V 
+        (2<SMALL>x</SMALL>f<SUB>RX</SUB>). Unused input components can be 
+        omitted.<BR><U>Note:</U> there's a problem with the INA163's. Sometimes 
+        they switch to massively attenuate the input difference signal, though 
+        signals and voltages on all pins would suggest it <I>should</I> still be 
+        giving x50.000 gain - working to debug the problem... (July 17 / 
+        04)</SMALL><BR><BR>Eagle [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-scanner-TayloeMixer-v15.sch">sch</A>] 
+        [<A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/schematics/msp430-scanner-TayloeMixer-v15.brd">brd</A>]<BR><BR></LI></UL></TD>
+    <TD vAlign=top width="50%"><U><FONT size=4>Other files</FONT></U><BR><BR>
+      <UL>
+        <LI><A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/firmware/"><B>mainboard 
+        firmware v1.0</B></A><BR>runs on the MSP430F149, preprogrammed for a 50 
+        MHz crystal osc as the DDS ref_clk input (can be changed in 
+        MSP430-fw-dds.h)<BR><BR>
+        <LI><A href="http://users.tkk.fi/~jwagner/electr/dc-rx/pics/">new and 
+        old photos</A><BR>
+        <LI><A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/cheddar54-source/">VisualBasic 
+        source code for PC software</A><BR>(not very complete...)<BR>
+        <LI>audio samples (added later)<BR>
+        <LI>DRM <A 
+        href="http://users.tkk.fi/~jwagner/electr/dc-rx/recordings/">recordings</A><BR>(for 
+        now, just Dream DRM rx log of 30.05.2005 tests)<BR></LI></UL><U><FONT 
+      size=4>Parts</FONT></U><BR><BR>All semiconductor parts used in the 
+      mainboard are available as free samples, or can be bought from DigiKey and 
+      others.<BR><BR><SMALL>Free samples:<BR><A 
+      href="http://www.analog.com/">Analog Devices</A>: AD9854 AD831<BR><A 
+      href="http://www.fairchildsemi.com/">Fairchild</A>: FIN1028 FSAV331<BR><A 
+      href="http://www.ti.com/">Texas Instruments</A>: MSP430F149 MAX3221 
+      TPS75833 CD74HC573M<BR></SMALL></TD></TR>
+  <TR>
+    <TD><U><FONT size=4>Notes:</FONT></U><BR><BR>The RS232 serial port on the 
+      uC/9851 board is set to 9600 baud, 8 data, 1 stop, no parity, no flow 
+      control. Also, the MAX3221 has an autoshutdown feature, meaning that if it 
+      doesn't find a valid RS232 voltage level on the DB9 connector RX/TX lines 
+      for some time, it will shut down. So, before trying to debug serial comm, 
+      connect the cable to a PC - otherwise you might be surprised to find no 
+      output.<BR><BR>Because many people have asked, I've now added a page with 
+      some infos on <A 
+      href="http://users.tkk.fi/~jwagner/electr/dc-rx/PCB_devel.htm">how to make 
+      etched SMD PCB boards</A> with standard equipment.<BR><BR></TD>
+    <TD></TD></TR></TBODY></TABLE><BR>
+<P></P>
+<P><BR></P>
+<P>
+<HR noShade SIZE=1>
+(C) 2003 Jan Florian Wagner, OH2GHR<BR>jwagner at cc hut fi<BR><BR>
+<P></P></FONT></BODY></HTML>

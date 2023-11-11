@@ -1,0 +1,20 @@
+--cpu=Cortex-M4.fp
+".\objects\main.o"
+".\objects\delay.o"
+".\objects\systeminit.o"
+".\objects\usart.o"
+".\objects\adc.o"
+".\objects\dma.o"
+".\objects\measure.o"
+".\objects\esp8266.o"
+".\objects\my_key.o"
+"..\Library\msp432p4xx_driverlib.lib"
+"..\CMSIS\5.7.0\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
+".\objects\arm_rfft_fast_f32.o"
+".\objects\arm_rfft_fast_init_f32.o"
+".\objects\startup_msp432p401r_uvision.o"
+".\objects\system_msp432p401r.o"
+--strict --scatter ".\Objects\MSP432.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\MSP432.map" -o .\Objects\MSP432.axf
