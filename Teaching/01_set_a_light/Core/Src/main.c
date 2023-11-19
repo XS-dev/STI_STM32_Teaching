@@ -90,20 +90,37 @@ int main(void)
   MX_TIM7_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	uint32_t time=500;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	HAL_GPIO_WritePin(GPIOA, Light_Pin, GPIO_PIN_RESET);
 	
+
   while (1)
   {
 
-		Led_ON;
-		Delay_Ms(1000);
-		Led_OFF;
-		Delay_Ms(1000);	
+//		Led_ON;
+//		Delay_Ms(1000);
+//		Led_OFF;
+//		Delay_Ms(1000);	
+		for(uint32_t i=0;i<time;i++)
+		{
+			Delay_Us(i);
+			Led_OFF; //设置0
+			Delay_Us(time-i);
+			Led_ON;   //设置1
+		}
+		for(uint32_t i=0;i<time;i++)
+		{
+			Delay_Us(i);
+			Led_ON;      //设置1
+			Delay_Us(time-i);
+			Led_OFF;    //设置0
+		}
+		
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -175,7 +192,17 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+//		for(;pwm_value<500;pwm_value++)
+//		{
+//				__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_2, pwm_value);    //修改比较值，修改占空比
+//				Delay_Ms(5);
+//		}
+//		for(;pwm_value>0;pwm_value--)
+//		{
+//				__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_2, pwm_value);    //修改比较值，修改占空比
+//				Delay_Ms(5);
+//		}
+		
 /* USER CODE END 4 */
 
 /**
