@@ -117,16 +117,16 @@ int main(void)
 		case 0:
 			capture_Cnt++;
 			__HAL_TIM_SET_CAPTUREPOLARITY(&htim5, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
-			HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_3);	//Æô¶¯ÊäÈë²¶»ñ  
+			HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_3);	//å¯åŠ¨è¾“å…¥æ•è·  
 			break;
 		case 4:
-			high_time 	= capture_Buf[1]- capture_Buf[0];    //¸ßµçÆ½Ê±¼ä
-			low_time 		= capture_Buf[2]- capture_Buf[1]; 		//µÍµçÆ½Ê±¼ä
+			high_time 	= capture_Buf[1]- capture_Buf[0];    //é«˜ç”µå¹³æ—¶é—´
+			low_time 		= capture_Buf[2]- capture_Buf[1]; 		//ä½ç”µå¹³æ—¶é—´
 			period_time = capture_Buf[2]- capture_Buf[0];
 			high_time 	= high_time*1; 	
 		  low_time 		= low_time *1; 		
 			period_time = period_time*1; 
-			capture_Cnt = 0;  //Çå¿Õ±êÖ¾Î»
+			capture_Cnt = 0;  //æ¸…ç©ºæ ‡å¿—ä½
 			break;
 					
 		}		
@@ -209,18 +209,19 @@ void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 	{
 		switch(capture_Cnt){
 			case 1:
-				capture_Buf[0] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//»ñÈ¡µ±Ç°µÄ²¶»ñÖµ.
-				__HAL_TIM_SET_CAPTUREPOLARITY(&htim5,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //ÉèÖÃÎªÏÂ½µÑØ²¶»ñ
+				capture_Buf[0] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//è·å–å½“å‰çš„æ•è·å€¼.
+				__HAL_TIM_SET_CAPTUREPOLARITY(&htim5,TIM_CHANNEL_3,TIM_ICPOLARITY_FALLING);  //è®¾ç½®ä¸ºä¸‹é™æ²¿æ•è·
 				capture_Cnt++;
 				break;
 			case 2:
-				capture_Buf[1] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//»ñÈ¡µ±Ç°µÄ²¶»ñÖµ.
+				capture_Buf[1] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//è·å–å½“å‰çš„æ•è·å€¼.
 				__HAL_TIM_SET_CAPTUREPOLARITY(&htim5, TIM_CHANNEL_3, TIM_INPUTCHANNELPOLARITY_RISING);
 				capture_Cnt++; 
+				break;
 			case 3:
 				capture_Cnt++;
-				capture_Buf[2] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//»ñÈ¡µ±Ç°µÄ²¶»ñÖµ.
-				HAL_TIM_IC_Stop_IT(&htim5,TIM_CHANNEL_3); //Í£Ö¹²¶»ñ  				
+				capture_Buf[2] = HAL_TIM_ReadCapturedValue(&htim5,TIM_CHANNEL_3);//è·å–å½“å‰çš„æ•è·å€¼.
+				HAL_TIM_IC_Stop_IT(&htim5,TIM_CHANNEL_3); //åœæ­¢æ•è·  				
 				break;			
 		}
 	
