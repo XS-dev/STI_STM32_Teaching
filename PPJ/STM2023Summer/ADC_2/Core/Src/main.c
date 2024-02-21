@@ -181,15 +181,15 @@ int main(void)
   adc_init();
   adc3_init();
 
-  for (u16 temp = 0; temp< 10000;temp++)
-  {
-	printf("%d\r\n", adc1_data[temp]);
-  }
- 
-  for (u16 temp = 0; temp< 10000;temp++)
-  {
-	printf("%d\r\n", adc3_data[temp]);
-  } 
+//  for (u16 temp = 0; temp< 10000;temp++)
+//  {
+//	printf("%d\r\n", adc1_data[temp]);
+//  }
+// 
+//  for (u16 temp = 0; temp< 10000;temp++)
+//  {
+//	printf("%d\r\n", adc3_data[temp]);
+//  } 
 
   /* USER CODE END 2 */
 
@@ -203,11 +203,19 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-//	  for (u16 temp = 0; temp< 200;temp++)
-//	  {
-//		Dat[temp] = HAL_DAC_GetValue(&hdac1, DAC_CHANNEL_2);
-//		printf("%d\r\n", Dat[temp]);
-//	  }
+		adc_init();
+		adc3_init();
+
+		for (u16 temp = 0; temp< 10000;temp++)
+		{
+		printf("%d\r\n", adc1_data[temp]);
+		}
+
+		for (u16 temp = 0; temp< 10000;temp++)
+		{
+		printf("%d\r\n", adc3_data[temp]);
+		} 
+
 
   }
   /* USER CODE END 3 */

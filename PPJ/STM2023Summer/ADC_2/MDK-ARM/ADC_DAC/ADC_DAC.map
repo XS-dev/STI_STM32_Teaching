@@ -4024,47 +4024,47 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08005a24   Section        0  usart.o(.text.fputc)
     __arm_cp.4_0                             0x08005a3c   Number         4  usart.o(.text.fputc)
     [Anonymous Symbol]                       0x08005a40   Section        0  main.o(.text.main)
-    __arm_cp.4_0                             0x08005bc8   Number         4  main.o(.text.main)
-    __arm_cp.4_1                             0x08005bcc   Number         4  main.o(.text.main)
-    __arm_cp.4_2                             0x08005bd0   Number         4  main.o(.text.main)
-    __arm_cp.4_3                             0x08005bd4   Number         4  main.o(.text.main)
-    __arm_cp.4_4                             0x08005bd8   Number         4  main.o(.text.main)
-    __arm_cp.4_5                             0x08005bdc   Number         4  main.o(.text.main)
-    __arm_cp.4_6                             0x08005be0   Number         4  main.o(.text.main)
-    __arm_cp.4_7                             0x08005be4   Number         4  main.o(.text.main)
-    __arm_cp.4_8                             0x08005be8   Number         4  main.o(.text.main)
-    __arm_cp.4_9                             0x08005bec   Number         4  main.o(.text.main)
-    __arm_cp.4_10                            0x08005bf0   Number         4  main.o(.text.main)
-    i.__0printf$1                            0x08005bf4   Section        0  printf1.o(i.__0printf$1)
-    i.__ARM_fpclassify                       0x08005c14   Section        0  fpclassify.o(i.__ARM_fpclassify)
-    i.__hardfp_sin                           0x08005c48   Section        0  sin.o(i.__hardfp_sin)
-    i.__ieee754_rem_pio2                     0x08005cf8   Section        0  rred.o(i.__ieee754_rem_pio2)
-    i.__kernel_cos                           0x08006000   Section        0  cos_i.o(i.__kernel_cos)
-    i.__kernel_poly                          0x080060c4   Section        0  poly.o(i.__kernel_poly)
-    i.__kernel_sin                           0x08006138   Section        0  sin_i.o(i.__kernel_sin)
-    i.__mathlib_dbl_invalid                  0x080061d8   Section        0  dunder.o(i.__mathlib_dbl_invalid)
-    i.__mathlib_dbl_underflow                0x080061f0   Section        0  dunder.o(i.__mathlib_dbl_underflow)
-    i.__scatterload_copy                     0x08006208   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x08006216   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x08006218   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.__set_errno                            0x08006228   Section        0  errno.o(i.__set_errno)
-    _printf_core                             0x08006235   Thumb Code   336  printf1.o(i._printf_core)
-    i._printf_core                           0x08006234   Section        0  printf1.o(i._printf_core)
-    i.fabs                                   0x08006388   Section        0  fabs.o(i.fabs)
-    i.puts                                   0x080063a0   Section        0  puts.o(i.puts)
-    C                                        0x080063c8   Data          48  cos_i.o(.constdata)
-    .constdata                               0x080063c8   Section       48  cos_i.o(.constdata)
-    pio2s                                    0x080063f8   Data          48  rred.o(.constdata)
-    .constdata                               0x080063f8   Section      200  rred.o(.constdata)
-    twooverpi                                0x08006428   Data         152  rred.o(.constdata)
-    S                                        0x080064c0   Data          40  sin_i.o(.constdata)
-    .constdata                               0x080064c0   Section       40  sin_i.o(.constdata)
-    DMA_CalcBaseAndBitshift.flagBitshiftOffset 0x08006510   Data           8  stm32h7xx_hal_dma.o(.rodata.cst8)
-    UARTEx_SetNbDataToProcess.numerator      0x08006518   Data           8  stm32h7xx_hal_uart_ex.o(.rodata.cst8)
-    UARTEx_SetNbDataToProcess.denominator    0x08006520   Data           8  stm32h7xx_hal_uart_ex.o(.rodata.cst8)
-    .L.str.3                                 0x08006528   Data           5  main.o(.rodata.str1.1)
-    [Anonymous Symbol]                       0x08006528   Section        0  main.o(.rodata.str1.1)
-    .Lstr.6                                  0x0800652d   Data          46  main.o(.rodata.str1.1)
+    __arm_cp.4_0                             0x08005bd4   Number         4  main.o(.text.main)
+    __arm_cp.4_1                             0x08005bd8   Number         4  main.o(.text.main)
+    __arm_cp.4_2                             0x08005bdc   Number         4  main.o(.text.main)
+    __arm_cp.4_3                             0x08005be0   Number         4  main.o(.text.main)
+    __arm_cp.4_4                             0x08005be4   Number         4  main.o(.text.main)
+    __arm_cp.4_5                             0x08005be8   Number         4  main.o(.text.main)
+    __arm_cp.4_6                             0x08005bec   Number         4  main.o(.text.main)
+    __arm_cp.4_7                             0x08005bf0   Number         4  main.o(.text.main)
+    __arm_cp.4_8                             0x08005bf4   Number         4  main.o(.text.main)
+    __arm_cp.4_9                             0x08005bf8   Number         4  main.o(.text.main)
+    __arm_cp.4_10                            0x08005bfc   Number         4  main.o(.text.main)
+    i.__0printf$1                            0x08005c00   Section        0  printf1.o(i.__0printf$1)
+    i.__ARM_fpclassify                       0x08005c20   Section        0  fpclassify.o(i.__ARM_fpclassify)
+    i.__hardfp_sin                           0x08005c50   Section        0  sin.o(i.__hardfp_sin)
+    i.__ieee754_rem_pio2                     0x08005d00   Section        0  rred.o(i.__ieee754_rem_pio2)
+    i.__kernel_cos                           0x08006008   Section        0  cos_i.o(i.__kernel_cos)
+    i.__kernel_poly                          0x080060cc   Section        0  poly.o(i.__kernel_poly)
+    i.__kernel_sin                           0x08006140   Section        0  sin_i.o(i.__kernel_sin)
+    i.__mathlib_dbl_invalid                  0x080061e0   Section        0  dunder.o(i.__mathlib_dbl_invalid)
+    i.__mathlib_dbl_underflow                0x080061f8   Section        0  dunder.o(i.__mathlib_dbl_underflow)
+    i.__scatterload_copy                     0x08006210   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0800621e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x08006220   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_errno                            0x08006230   Section        0  errno.o(i.__set_errno)
+    _printf_core                             0x0800623d   Thumb Code   336  printf1.o(i._printf_core)
+    i._printf_core                           0x0800623c   Section        0  printf1.o(i._printf_core)
+    i.fabs                                   0x08006390   Section        0  fabs.o(i.fabs)
+    i.puts                                   0x080063a8   Section        0  puts.o(i.puts)
+    C                                        0x080063d0   Data          48  cos_i.o(.constdata)
+    .constdata                               0x080063d0   Section       48  cos_i.o(.constdata)
+    pio2s                                    0x08006400   Data          48  rred.o(.constdata)
+    .constdata                               0x08006400   Section      200  rred.o(.constdata)
+    twooverpi                                0x08006430   Data         152  rred.o(.constdata)
+    S                                        0x080064c8   Data          40  sin_i.o(.constdata)
+    .constdata                               0x080064c8   Section       40  sin_i.o(.constdata)
+    DMA_CalcBaseAndBitshift.flagBitshiftOffset 0x08006518   Data           8  stm32h7xx_hal_dma.o(.rodata.cst8)
+    UARTEx_SetNbDataToProcess.numerator      0x08006520   Data           8  stm32h7xx_hal_uart_ex.o(.rodata.cst8)
+    UARTEx_SetNbDataToProcess.denominator    0x08006528   Data           8  stm32h7xx_hal_uart_ex.o(.rodata.cst8)
+    .L.str.3                                 0x08006530   Data           5  main.o(.rodata.str1.1)
+    [Anonymous Symbol]                       0x08006530   Section        0  main.o(.rodata.str1.1)
+    .Lstr.6                                  0x08006535   Data          46  main.o(.rodata.str1.1)
     .data                                    0x20000000   Section        4  stdout.o(.data)
     _errno                                   0x20000004   Data           4  errno.o(.data)
     .data                                    0x20000004   Section        4  errno.o(.data)
@@ -4403,28 +4403,28 @@ Image Symbol Table
     adc3_init                                0x080058f9   Thumb Code   152  main.o(.text.adc3_init)
     adc_init                                 0x0800598d   Thumb Code   152  main.o(.text.adc_init)
     fputc                                    0x08005a25   Thumb Code    28  usart.o(.text.fputc)
-    main                                     0x08005a41   Thumb Code   436  main.o(.text.main)
-    __0printf$1                              0x08005bf5   Thumb Code    22  printf1.o(i.__0printf$1)
-    __1printf$1                              0x08005bf5   Thumb Code     0  printf1.o(i.__0printf$1)
-    __2printf                                0x08005bf5   Thumb Code     0  printf1.o(i.__0printf$1)
-    __ARM_fpclassify                         0x08005c15   Thumb Code    48  fpclassify.o(i.__ARM_fpclassify)
-    __hardfp_sin                             0x08005c49   Thumb Code   158  sin.o(i.__hardfp_sin)
-    __ieee754_rem_pio2                       0x08005cf9   Thumb Code   646  rred.o(i.__ieee754_rem_pio2)
-    __kernel_cos                             0x08006001   Thumb Code   182  cos_i.o(i.__kernel_cos)
-    __kernel_poly                            0x080060c5   Thumb Code   112  poly.o(i.__kernel_poly)
-    __kernel_sin                             0x08006139   Thumb Code   144  sin_i.o(i.__kernel_sin)
-    __mathlib_dbl_invalid                    0x080061d9   Thumb Code    10  dunder.o(i.__mathlib_dbl_invalid)
-    __mathlib_dbl_underflow                  0x080061f1   Thumb Code    10  dunder.o(i.__mathlib_dbl_underflow)
-    __scatterload_copy                       0x08006209   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x08006217   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x08006219   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __set_errno                              0x08006229   Thumb Code     6  errno.o(i.__set_errno)
-    fabs                                     0x08006389   Thumb Code    24  fabs.o(i.fabs)
-    puts                                     0x080063a1   Thumb Code    30  puts.o(i.puts)
-    D1CorePrescTable                         0x080064e8   Data          16  system_stm32h7xx.o(.rodata.D1CorePrescTable)
-    UARTPrescTable                           0x080064f8   Data          24  stm32h7xx_hal_uart.o(.rodata.UARTPrescTable)
-    Region$$Table$$Base                      0x0800655c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800657c   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x08005a41   Thumb Code   448  main.o(.text.main)
+    __0printf$1                              0x08005c01   Thumb Code    22  printf1.o(i.__0printf$1)
+    __1printf$1                              0x08005c01   Thumb Code     0  printf1.o(i.__0printf$1)
+    __2printf                                0x08005c01   Thumb Code     0  printf1.o(i.__0printf$1)
+    __ARM_fpclassify                         0x08005c21   Thumb Code    48  fpclassify.o(i.__ARM_fpclassify)
+    __hardfp_sin                             0x08005c51   Thumb Code   158  sin.o(i.__hardfp_sin)
+    __ieee754_rem_pio2                       0x08005d01   Thumb Code   646  rred.o(i.__ieee754_rem_pio2)
+    __kernel_cos                             0x08006009   Thumb Code   182  cos_i.o(i.__kernel_cos)
+    __kernel_poly                            0x080060cd   Thumb Code   112  poly.o(i.__kernel_poly)
+    __kernel_sin                             0x08006141   Thumb Code   144  sin_i.o(i.__kernel_sin)
+    __mathlib_dbl_invalid                    0x080061e1   Thumb Code    10  dunder.o(i.__mathlib_dbl_invalid)
+    __mathlib_dbl_underflow                  0x080061f9   Thumb Code    10  dunder.o(i.__mathlib_dbl_underflow)
+    __scatterload_copy                       0x08006211   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0800621f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x08006221   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x08006231   Thumb Code     6  errno.o(i.__set_errno)
+    fabs                                     0x08006391   Thumb Code    24  fabs.o(i.fabs)
+    puts                                     0x080063a9   Thumb Code    30  puts.o(i.puts)
+    D1CorePrescTable                         0x080064f0   Data          16  system_stm32h7xx.o(.rodata.D1CorePrescTable)
+    UARTPrescTable                           0x08006500   Data          24  stm32h7xx_hal_uart.o(.rodata.UARTPrescTable)
+    Region$$Table$$Base                      0x08006564   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08006584   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x20000000   Data           4  stdout.o(.data)
     uwTickFreq                               0x20000008   Data           1  stm32h7xx_hal.o(.data..L_MergedGlobals)
     uwTickPrio                               0x2000000c   Data           4  stm32h7xx_hal.o(.data..L_MergedGlobals)
@@ -4456,9 +4456,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000299
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00006598, Max: 0x00200000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000065a0, Max: 0x00200000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x0000657c, Max: 0x00200000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00006584, Max: 0x00200000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4618,49 +4618,48 @@ Memory Map of the image
     0x080058f8   0x080058f8   0x00000094   Code   RO           15    .text.adc3_init     main.o
     0x0800598c   0x0800598c   0x00000098   Code   RO           11    .text.adc_init      main.o
     0x08005a24   0x08005a24   0x0000001c   Code   RO          134    .text.fputc         usart.o
-    0x08005a40   0x08005a40   0x000001b4   Code   RO           19    .text.main          main.o
-    0x08005bf4   0x08005bf4   0x00000020   Code   RO         1898    i.__0printf$1       mc_w.l(printf1.o)
-    0x08005c14   0x08005c14   0x00000030   Code   RO         2187    i.__ARM_fpclassify  m_wv.l(fpclassify.o)
-    0x08005c44   0x08005c44   0x00000004   PAD
-    0x08005c48   0x08005c48   0x000000b0   Code   RO         1830    i.__hardfp_sin      m_wv.l(sin.o)
-    0x08005cf8   0x08005cf8   0x00000308   Code   RO         2131    i.__ieee754_rem_pio2  m_wv.l(rred.o)
-    0x08006000   0x08006000   0x000000c4   Code   RO         2114    i.__kernel_cos      m_wv.l(cos_i.o)
-    0x080060c4   0x080060c4   0x00000070   Code   RO         2189    i.__kernel_poly     m_wv.l(poly.o)
-    0x08006134   0x08006134   0x00000004   PAD
-    0x08006138   0x08006138   0x000000a0   Code   RO         2136    i.__kernel_sin      m_wv.l(sin_i.o)
-    0x080061d8   0x080061d8   0x00000018   Code   RO         2120    i.__mathlib_dbl_invalid  m_wv.l(dunder.o)
-    0x080061f0   0x080061f0   0x00000018   Code   RO         2123    i.__mathlib_dbl_underflow  m_wv.l(dunder.o)
-    0x08006208   0x08006208   0x0000000e   Code   RO         2199    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x08006216   0x08006216   0x00000002   Code   RO         2200    i.__scatterload_null  mc_w.l(handlers.o)
-    0x08006218   0x08006218   0x0000000e   Code   RO         2201    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x08006226   0x08006226   0x00000002   PAD
-    0x08006228   0x08006228   0x0000000c   Code   RO         2165    i.__set_errno       mc_w.l(errno.o)
-    0x08006234   0x08006234   0x00000154   Code   RO         1905    i._printf_core      mc_w.l(printf1.o)
-    0x08006388   0x08006388   0x00000018   Code   RO         2183    i.fabs              m_wv.l(fabs.o)
-    0x080063a0   0x080063a0   0x00000024   Code   RO         1845    i.puts              mc_w.l(puts.o)
-    0x080063c4   0x080063c4   0x00000004   PAD
-    0x080063c8   0x080063c8   0x00000030   Data   RO         2115    .constdata          m_wv.l(cos_i.o)
-    0x080063f8   0x080063f8   0x000000c8   Data   RO         2133    .constdata          m_wv.l(rred.o)
-    0x080064c0   0x080064c0   0x00000028   Data   RO         2137    .constdata          m_wv.l(sin_i.o)
-    0x080064e8   0x080064e8   0x00000010   Data   RO         1820    .rodata.D1CorePrescTable  system_stm32h7xx.o
-    0x080064f8   0x080064f8   0x00000018   Data   RO         1762    .rodata.UARTPrescTable  stm32h7xx_hal_uart.o
-    0x08006510   0x08006510   0x00000008   Data   RO          590    .rodata.cst8        stm32h7xx_hal_dma.o
-    0x08006518   0x08006518   0x00000010   Data   RO         1806    .rodata.cst8        stm32h7xx_hal_uart_ex.o
-    0x08006528   0x08006528   0x00000033   Data   RO           31    .rodata.str1.1      main.o
-    0x0800655b   0x0800655b   0x00000001   PAD
-    0x0800655c   0x0800655c   0x00000020   Data   RO         2198    Region$$Table       anon$$obj.o
+    0x08005a40   0x08005a40   0x000001c0   Code   RO           19    .text.main          main.o
+    0x08005c00   0x08005c00   0x00000020   Code   RO         1898    i.__0printf$1       mc_w.l(printf1.o)
+    0x08005c20   0x08005c20   0x00000030   Code   RO         2187    i.__ARM_fpclassify  m_wv.l(fpclassify.o)
+    0x08005c50   0x08005c50   0x000000b0   Code   RO         1830    i.__hardfp_sin      m_wv.l(sin.o)
+    0x08005d00   0x08005d00   0x00000308   Code   RO         2131    i.__ieee754_rem_pio2  m_wv.l(rred.o)
+    0x08006008   0x08006008   0x000000c4   Code   RO         2114    i.__kernel_cos      m_wv.l(cos_i.o)
+    0x080060cc   0x080060cc   0x00000070   Code   RO         2189    i.__kernel_poly     m_wv.l(poly.o)
+    0x0800613c   0x0800613c   0x00000004   PAD
+    0x08006140   0x08006140   0x000000a0   Code   RO         2136    i.__kernel_sin      m_wv.l(sin_i.o)
+    0x080061e0   0x080061e0   0x00000018   Code   RO         2120    i.__mathlib_dbl_invalid  m_wv.l(dunder.o)
+    0x080061f8   0x080061f8   0x00000018   Code   RO         2123    i.__mathlib_dbl_underflow  m_wv.l(dunder.o)
+    0x08006210   0x08006210   0x0000000e   Code   RO         2199    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800621e   0x0800621e   0x00000002   Code   RO         2200    i.__scatterload_null  mc_w.l(handlers.o)
+    0x08006220   0x08006220   0x0000000e   Code   RO         2201    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800622e   0x0800622e   0x00000002   PAD
+    0x08006230   0x08006230   0x0000000c   Code   RO         2165    i.__set_errno       mc_w.l(errno.o)
+    0x0800623c   0x0800623c   0x00000154   Code   RO         1905    i._printf_core      mc_w.l(printf1.o)
+    0x08006390   0x08006390   0x00000018   Code   RO         2183    i.fabs              m_wv.l(fabs.o)
+    0x080063a8   0x080063a8   0x00000024   Code   RO         1845    i.puts              mc_w.l(puts.o)
+    0x080063cc   0x080063cc   0x00000004   PAD
+    0x080063d0   0x080063d0   0x00000030   Data   RO         2115    .constdata          m_wv.l(cos_i.o)
+    0x08006400   0x08006400   0x000000c8   Data   RO         2133    .constdata          m_wv.l(rred.o)
+    0x080064c8   0x080064c8   0x00000028   Data   RO         2137    .constdata          m_wv.l(sin_i.o)
+    0x080064f0   0x080064f0   0x00000010   Data   RO         1820    .rodata.D1CorePrescTable  system_stm32h7xx.o
+    0x08006500   0x08006500   0x00000018   Data   RO         1762    .rodata.UARTPrescTable  stm32h7xx_hal_uart.o
+    0x08006518   0x08006518   0x00000008   Data   RO          590    .rodata.cst8        stm32h7xx_hal_dma.o
+    0x08006520   0x08006520   0x00000010   Data   RO         1806    .rodata.cst8        stm32h7xx_hal_uart_ex.o
+    0x08006530   0x08006530   0x00000033   Data   RO           31    .rodata.str1.1      main.o
+    0x08006563   0x08006563   0x00000001   PAD
+    0x08006564   0x08006564   0x00000020   Data   RO         2198    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08006580, Size: 0x00000828, Max: 0x00020000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08006588, Size: 0x00000828, Max: 0x00020000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08006580   0x00000004   Data   RW         2156    .data               mc_w.l(stdout.o)
-    0x20000004   0x08006584   0x00000004   Data   RW         2166    .data               mc_w.l(errno.o)
-    0x20000008   0x08006588   0x00000008   Data   RW          956    .data..L_MergedGlobals  stm32h7xx_hal.o
-    0x20000010   0x08006590   0x00000008   Data   RW         1821    .data..L_MergedGlobals  system_stm32h7xx.o
+    0x20000000   0x08006588   0x00000004   Data   RW         2156    .data               mc_w.l(stdout.o)
+    0x20000004   0x0800658c   0x00000004   Data   RW         2166    .data               mc_w.l(errno.o)
+    0x20000008   0x08006590   0x00000008   Data   RW          956    .data..L_MergedGlobals  stm32h7xx_hal.o
+    0x20000010   0x08006598   0x00000008   Data   RW         1821    .data..L_MergedGlobals  system_stm32h7xx.o
     0x20000018        -       0x00000001   Zero   RW           27    .bss.AdcConvEnd     main.o
-    0x20000019   0x08006598   0x00000003   PAD
+    0x20000019   0x080065a0   0x00000003   PAD
     0x2000001c        -       0x00000064   Zero   RW           61    .bss.hadc1          adc.o
     0x20000080        -       0x00000064   Zero   RW           62    .bss.hadc3          adc.o
     0x200000e4        -       0x00000014   Zero   RW           80    .bss.hdac1          dac.o
@@ -4713,35 +4712,35 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       592         56          0          0        440       7720   adc.o
-       240         24          0          0        140       6275   dac.o
-       100         12          0          0          0       5334   dma.o
-       156          8          0          0          0       2969   gpio.o
-      1194        196         51     131232          1      12891   main.o
+       592         56          0          0        440       7721   adc.o
+       240         24          0          0        140       6276   dac.o
+       100         12          0          0          0       5335   dma.o
+       156          8          0          0          0       2970   gpio.o
+      1206        196         51     131232          1      12889   main.o
         36          8        664          0       1024        812   startup_stm32h743xx.o
-       228         24          0          8          4      14563   stm32h7xx_hal.o
-      2884        180          0          0          0      23966   stm32h7xx_hal_adc.o
-       312          8          0          0          0      24546   stm32h7xx_hal_adc_ex.o
-       328         32          0          0          0      11764   stm32h7xx_hal_cortex.o
-       670         28          0          0          0       8314   stm32h7xx_hal_dac.o
-        52          0          0          0          0       8043   stm32h7xx_hal_dac_ex.o
-      4252        540          8          0          0      14233   stm32h7xx_hal_dma.o
-       630         16          0          0          0       6704   stm32h7xx_hal_gpio.o
-        32          4          0          0          0       2191   stm32h7xx_hal_msp.o
-        72          4          0          0          0      10214   stm32h7xx_hal_pwr_ex.o
-      2238         64          0          0          0      10961   stm32h7xx_hal_rcc.o
-      4472        252          0          0          0      17387   stm32h7xx_hal_rcc_ex.o
-       846         84          0          0          0      45135   stm32h7xx_hal_tim.o
-       140          0          0          0          0      19502   stm32h7xx_hal_tim_ex.o
-      1828        146         24          0          0      31766   stm32h7xx_hal_uart.o
-       286          8         16          0          0       9583   stm32h7xx_hal_uart_ex.o
-        56         12          0          0          0       1271   stm32h7xx_it.o
-       180         40         16          8          0       5625   system_stm32h7xx.o
-       476         44          0          0        304       7405   tim.o
-       256         16          0          0        148       8828   usart.o
+       228         24          0          8          4      14564   stm32h7xx_hal.o
+      2884        180          0          0          0      23967   stm32h7xx_hal_adc.o
+       312          8          0          0          0      24547   stm32h7xx_hal_adc_ex.o
+       328         32          0          0          0      11765   stm32h7xx_hal_cortex.o
+       670         28          0          0          0       8315   stm32h7xx_hal_dac.o
+        52          0          0          0          0       8044   stm32h7xx_hal_dac_ex.o
+      4252        540          8          0          0      14234   stm32h7xx_hal_dma.o
+       630         16          0          0          0       6705   stm32h7xx_hal_gpio.o
+        32          4          0          0          0       2192   stm32h7xx_hal_msp.o
+        72          4          0          0          0      10215   stm32h7xx_hal_pwr_ex.o
+      2238         64          0          0          0      10962   stm32h7xx_hal_rcc.o
+      4472        252          0          0          0      17388   stm32h7xx_hal_rcc_ex.o
+       846         84          0          0          0      45136   stm32h7xx_hal_tim.o
+       140          0          0          0          0      19503   stm32h7xx_hal_tim_ex.o
+      1828        146         24          0          0      31767   stm32h7xx_hal_uart.o
+       286          8         16          0          0       9584   stm32h7xx_hal_uart_ex.o
+        56         12          0          0          0       1272   stm32h7xx_it.o
+       180         40         16          8          0       5626   system_stm32h7xx.o
+       476         44          0          0        304       7406   tim.o
+       256         16          0          0        148       8829   usart.o
 
     ----------------------------------------------------------------------
-     22580       1806        812     131248       2064     318002   Object Totals
+     22592       1806        812     131248       2064     318024   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         24          0          1          0          3          0   (incl. Padding)
 
@@ -4779,8 +4778,8 @@ Image component sizes
         98          0          0          0          0         92   uldiv.o
 
     ----------------------------------------------------------------------
-      2300        252        288          8          0       2116   Library Totals
-        14          4          0          0          0          0   (incl. Padding)
+      2296        252        288          8          0       2116   Library Totals
+        10          4          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -4790,7 +4789,7 @@ Image component sizes
        746         42          0          8          0        816   mc_w.l
 
     ----------------------------------------------------------------------
-      2300        252        288          8          0       2116   Library Totals
+      2296        252        288          8          0       2116   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -4799,15 +4798,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     24880       2058       1100     131256       2064     318826   Grand Totals
-     24880       2058       1100     131256       2064     318826   ELF Image Totals
-     24880       2058       1100     131256          0          0   ROM Totals
+     24888       2058       1100     131256       2064     318848   Grand Totals
+     24888       2058       1100     131256       2064     318848   ELF Image Totals
+     24888       2058       1100     131256          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                25980 (  25.37kB)
+    Total RO  Size (Code + RO Data)                25988 (  25.38kB)
     Total RW  Size (RW Data + ZI Data)            133320 ( 130.20kB)
-    Total ROM Size (Code + RO Data + RW Data)     157236 ( 153.55kB)
+    Total ROM Size (Code + RO Data + RW Data)     157244 ( 153.56kB)
 
 ==============================================================================
 

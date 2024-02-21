@@ -28,7 +28,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-ALIGN_32BYTES (uint16_t Dat[20]) 	__attribute__((section(".ARM.__at_0x38000000")));
+ALIGN_32BYTES (uint16_t Dat[40]) 	__attribute__((section(".ARM.__at_0x38000000")));
 
 /* USER CODE END Includes */
 
@@ -71,10 +71,10 @@ void adc_init(void)
 void SineWave()
 {
     uint16_t i;
-    for( i=0;i<20;i++)
+    for( i=0;i<40;i++)
     {
-  		Dat[i]=(uint16_t)((int16_t)(2048*sin(i*2*3.14159/20))+2048);
-
+  		Dat[i]=(uint16_t)((int16_t)(2048*sin(i*2*3.1415926/40))+2048);
+//			Dat[i] = 5400;
     }
 }
 /* USER CODE END PM */
@@ -141,20 +141,21 @@ int main(void)
   MX_TIM15_Init();
   MX_DAC1_Init();
   /* USER CODE BEGIN 2 */
+	printf("start\n");
   SineWave();//生成正弦数据
-  HAL_DAC_Start_DMA(&hdac1,DAC_CHANNEL_2,(uint32_t *)Dat,20,DAC_ALIGN_12B_R);//开启DMA-DAC
+  HAL_DAC_Start_DMA(&hdac1,DAC_CHANNEL_2,(uint32_t *)Dat,40,DAC_ALIGN_12B_R);//开启DMA-DAC
   HAL_TIM_Base_Start(&htim6);//打开定时器6
-//  HAL_Delay(1000);
+//  HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_2, DAC_ALIGN_12B_R, 1);  //设置发生的电压
+
   adc_init();
-//  adc_init();
-//  adc_init();
-  for (u16 temp = 0; temp< 10000;temp++)
-  {
-		printf("%d\r\n", adc1_data[temp]);
-  }
+
+//  for (u16 temp = 0; temp< 10000;temp++)
+//  {
+//		printf("%d\r\n", adc1_data[temp]);
+//  }
   
-//  FFT_Init();
-//  FFT_DIS();
+  FFT_Init();
+  FFT_DIS();
   /* USER CODE END 2 */
 
   /* Infinite loop */
